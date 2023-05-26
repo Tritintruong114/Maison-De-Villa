@@ -1,7 +1,15 @@
+import { Outlet } from "react-router-dom";
+import TopNavBar from "./components/TopNavBar";
+
 function App() {
   return (
-    <div className="h-screen w-full flex items-center justify-center bg-black text-white">
-      This is basic tailwind + vite + react + router dom + redux{" "}
+    <div className="flex no-scrollbar bg-opacity-60 bg-darkBrown overflow-hidden h-screen flex-col items-center">
+      <div className="text-black sm:mt-9 sm:py-6 bg-white w-full bg-slate-400 max-w-screen-xl">
+        <TopNavBar />
+      </div>
+      <div className="text-black overflow-scroll no-scrollbar h-screen bg-white w-full bg-slate-400 max-w-screen-xl">
+        <Outlet />
+      </div>
     </div>
   );
 }
