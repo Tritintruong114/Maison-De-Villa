@@ -1,10 +1,14 @@
 import { BiBed } from "react-icons/bi";
 import { TbBath } from "react-icons/tb";
 import { MdPersonOutline, MdArrowRight } from "react-icons/md";
+import CalenderPicker from "../../components/CalenderPicker";
+import { useSelector } from "react-redux";
 const HomePage = () => {
+  const { days } = useSelector((store) => store.dayRange);
   //This page will recive sanity data
+  //And redux data
   return (
-    <div className="text-black font-poppins bg-purple-300 w-full grid grid-cols-5 px-6">
+    <div className="text-black font-poppins bg-purple-300 w-full grid sm:grid-cols-5 px-6">
       <div className="col-span-2 no-scrollbar h-screen overflow-scroll">
         <div className="col-span-2">
           <h1 className="text-3xl font-medium">Mirror House Sud</h1>
@@ -12,15 +16,35 @@ const HomePage = () => {
         <div className="col-span-2">
           <p className="font-light text-sm ita">Ho Chi Minh City, Viet Nam</p>
         </div>
+        {/* Money */}
         <div>
-          <p>
-            $1,500<span className="text-xs">/night</span>
+          <p className="text-xl font-bold">
+            $200<span className="text-xs font-medium">/night</span>
           </p>
         </div>
-        <div className="col-span-2 flex items-center ">
-          <h1>Calender selected</h1>
+        {/* Money */}
+        {/* Calender */}
+        <div className="col-span-2 flex-col flex">
+          <h1 className="text-sm font-bold">Check Availability</h1>
+          <CalenderPicker />
         </div>
-        <div className="flex justify-between py-6">
+        {/* Calender */}
+        {/* Money total */}
+        <div className="col-span-2 flex py-6">
+          <h1 className="w-1/2 text-xl font-medium">
+            Your oder :{" "}
+            <span className="font-bold text-2xl">
+              {days}
+              <span className="text-sm font-medium">/days</span>
+            </span>
+          </h1>
+          <h1 className="w-1/2 text-xl font-medium">
+            Totals : <span className="font-bold text-2xl">${days * 200}</span>
+          </h1>
+        </div>
+        {/* Money total */}
+        {/* Furniture */}
+        <div className=" col-span-1 grid grid-cols-3">
           <div className="flex flex-col">
             <MdPersonOutline />
             <p>4 guests</p>
@@ -34,6 +58,7 @@ const HomePage = () => {
             <p>1 Bathroom</p>
           </div>
         </div>
+        {/* Furniture */}
         <div className="col-span-2">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -43,38 +68,38 @@ const HomePage = () => {
           </p>
         </div>
         <div className="col-span-2 grid grid-cols-2 py-6 gap-2 text-sm font-light">
-          {/* <div className="flex items-center">
+          <div className="flex items-center">
             <MdArrowRight />
-            <p>Kitchen</p>
-          </div> */}
+            <p className="m-0">Kitchen</p>
+          </div>
           {/* <UltilsAsset /> */}
           <div className="flex items-center">
             <MdArrowRight />
-            <p>Free parking</p>
+            <p className="m-0">Free parking</p>
           </div>
           <div className="flex items-center">
             <MdArrowRight />
-            <p>wi-fi</p>
+            <p className="m-0">wi-fi</p>
           </div>
           <div className="flex items-center">
             <MdArrowRight />
-            <p>Tv</p>
+            <p className="m-0">Tv</p>
           </div>
           <div className="flex items-center">
             <MdArrowRight />
-            <p>Air Conditioner</p>
+            <p className="m-0">Air Conditioner</p>
           </div>
           <div className="flex items-center">
             <MdArrowRight />
-            <p>Pool</p>
+            <p className="m-0">Pool</p>
+          </div>
+          <div className=" flex items-center">
+            <MdArrowRight />
+            <p className="m-0">Washer</p>
           </div>
           <div className="flex items-center">
             <MdArrowRight />
-            <p>asher</p>W
-          </div>
-          <div className="flex items-center">
-            <MdArrowRight />
-            <p>Hair dryer</p>
+            <p className="m-0">Hair dryer</p>
           </div>
         </div>
         <div className="col-span-2 grid grid-cols-3">

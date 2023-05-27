@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import TopNavBar from "./components/TopNavBar";
-import CalenderPicker from "./components/CalenderPicker";
 
 function App() {
   return (
@@ -9,8 +8,7 @@ function App() {
         <TopNavBar />
       </div>
       <div className="text-black overflow-scroll no-scrollbar h-screen bg-white w-full bg-slate-400 max-w-screen-2xl">
-        {/* <Outlet /> */}
-        <CalenderPicker />
+        <Outlet />
       </div>
     </div>
   );

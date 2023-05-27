@@ -29,10 +29,10 @@ const TopNavBar = () => {
           </button>
         </div>
       )}
-      <div className=" gap-3 sm:justify-normal px-6 justify-between h-28 sm:h-12 w-full flex items-center">
-        <Link to="/">
-          <h1 className="text-3xl font-bold">Maison</h1>
-        </Link>
+      <div className=" gap-3 text-center sm:justify-normal px-6 justify-between h-28 sm:h-12 w-full flex items-center">
+        <h1 className="text-3xl font-bold m-0">
+          <Link to="/">Maison</Link>
+        </h1>
         <div className="grid grid-cols-3 w-1/2   sm:visible sm:relative invisible absolute">
           <button>
             <Link to="cabin&cottages">Cabin & cottages</Link>
@@ -44,7 +44,7 @@ const TopNavBar = () => {
             <Link to="uniquestays">Unique Stays</Link>
           </button>
         </div>
-        <div className="visible text-white z-10 sm:invisible sm:absolute">
+        <div className="visible text-black z-10 sm:invisible sm:absolute">
           {!showMenu && (
             <GoThreeBars
               size={30}
