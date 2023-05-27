@@ -22,11 +22,9 @@ const HouseDetail = () => {
 
   return (
     <div className="text-black font-poppins bg-purple-300 w-full grid sm:grid-cols-5 px-6">
-      <div className="col-span-2 no-scrollbar h-screen overflow-scroll">
+      <div className="sm:col-span-2 col-span-3 no-scrollbar h-screen overflow-scroll">
         <div className="col-span-2">
-          <h1 className="text-3xl font-medium">
-            {homePageDetail.nameOfProduct}
-          </h1>
+          <h1 className="text-5xl font-bold">{homePageDetail.nameOfProduct}</h1>
         </div>
         <div className="col-span-2">
           <p className="font-light text-sm ita">

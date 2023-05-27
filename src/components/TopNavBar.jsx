@@ -13,7 +13,7 @@ const TopNavBar = () => {
       {showMenu && (
         <div
           onMouseLeave={() => setShowMenu(false)}
-          className=" text-black bg-white sm:invisible visible flex flex-col absolute w-full"
+          className=" text-black bg-white md:invisible visible flex flex-col absolute w-full"
         >
           <button className="active:bg-fall h-9 w-full hover:bg-lightBrown">
             <Link to="cabin&cottages">Cabin & cottages</Link>
@@ -29,11 +29,11 @@ const TopNavBar = () => {
           </button>
         </div>
       )}
-      <div className=" gap-3 text-center sm:justify-normal px-6 justify-between h-28 sm:h-12 w-full flex items-center">
+      <div className=" gap-3 text-center md:justify-normal px-6 justify-between h-28 sm:h-12 w-full flex items-center">
         <h1 className="text-3xl font-bold m-0">
           <Link to="/">Maison</Link>
         </h1>
-        <div className="grid grid-cols-3 w-1/2   sm:visible sm:relative invisible absolute">
+        <div className="grid grid-cols-3 w-1/2   md:visible md:relative invisible absolute">
           <button>
             <Link to="cabin&cottages">Cabin & cottages</Link>
           </button>
@@ -44,7 +44,7 @@ const TopNavBar = () => {
             <Link to="uniquestays">Unique Stays</Link>
           </button>
         </div>
-        <div className="visible text-black z-10 sm:invisible sm:absolute">
+        <div className="visible text-black z-10 md:invisible md:absolute">
           {!showMenu && (
             <GoThreeBars
               size={30}
@@ -53,7 +53,7 @@ const TopNavBar = () => {
           )}
         </div>
       </div>
-      <div className="w-1/6 flex absolute sm:relative sm:visible invisible  justify-end">
+      <div className="w-1/6 flex absolute md:relative md:visible invisible  justify-end">
         <button className="h-full md:w-3/4 sm:w-full bg-fall text-black mr-9 rounded-3xl">
           <Link to="signin">Sign in</Link>
         </button>

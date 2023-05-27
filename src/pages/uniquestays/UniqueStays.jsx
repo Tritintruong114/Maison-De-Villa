@@ -15,7 +15,7 @@ const UniqueStays = () => {
   }, [dispatch]);
 
   return (
-    <div className="grid font-poppins no-scrollbar w-full overflow-scroll gap-6 p-6 sm:grid-cols-3">
+    <div className="grid font-poppins no-scrollbar w-full overflow-scroll gap-6 p-6 xl:grid-cols-3">
       {homePageDatas.map((house) => {
         return (
           <>
@@ -23,16 +23,16 @@ const UniqueStays = () => {
               <CardSkeleton />
             ) : (
               <div
-                className="col-span-1 p-6 shadow-md flex-shrink-0 h-96 relative"
+                className="col-span-1 p-6 rounded-3xl shadow-md flex-shrink-0 h-96 relative"
                 key={house.id}
               >
                 <Link to={`${house.slug?.current}`}>
                   <img
-                    className="object-cover w-full h-3/4"
+                    className="object-cover w-full h-3/4 rounded-3xl"
                     src={house.mainImageOfProduct}
                   ></img>
                   <div className="grid">
-                    <div className="flex text-3xl text-yellow  items-center">
+                    <div className="flex text-3xl text-yellow  items-center pt-2">
                       <div className=" w-full h-full flex flex-col">
                         <h1 className="font-bold relative mb-0  text-xl text-black">
                           {house.nameOfProduct}
@@ -42,6 +42,9 @@ const UniqueStays = () => {
                             <p className="mb-0">{house.guests} Guests</p>
                           </div>
                         </h1>
+                        <p className="text-black text-xs absolute bottom-0">
+                          Ho Chi Minh, VN
+                        </p>
                       </div>
 
                       <div className="flex gap-3 items-center relative text-center flex-col">
@@ -51,9 +54,9 @@ const UniqueStays = () => {
                           </p>
                           <FaStar />
                         </div>
-                        <p className="text-black text-xs mb-0">(126 reviews)</p>
+                        <p className="text-black text-xs mb-0">(12 reviews)</p>
                         <h1 className="text-sm m-0 font-bold text-black">
-                          $300/night
+                          ${house.priceOfProduct}/night
                         </h1>
                       </div>
                     </div>
