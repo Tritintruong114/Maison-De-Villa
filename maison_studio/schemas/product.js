@@ -5,9 +5,9 @@ export default {
   fields: [
     {
       name: 'image',
-      title: 'Image',
-      type: 'array',
-      of: [{type: 'image'}],
+      title: 'Main Image',
+      type: 'image',
+      validation: (Rule) => Rule.required(),
       options: {
         hotspot: true,
       },
@@ -16,11 +16,13 @@ export default {
       name: 'name',
       title: 'Name',
       type: 'string',
+      validation: (Rule) => Rule.required().min(10).max(80),
     },
     {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
+      validation: (Rule) => Rule.required(),
       options: {
         source: 'name',
         maxLenght: 90,
@@ -30,11 +32,37 @@ export default {
       name: 'price',
       title: 'Price',
       type: 'number',
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'detail',
       title: 'Detail',
       type: 'string',
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'city',
+      title: 'City',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'country',
+      title: 'Country',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'roomStructure',
+      title: 'Rooms Structure',
+      type: 'number',
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'bathroomsStructure',
+      title: 'Bathrooms Structure',
+      type: 'number',
+      validation: (Rule) => Rule.required(),
     },
   ],
 }

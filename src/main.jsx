@@ -32,6 +32,10 @@ const router = createBrowserRouter([
         element: <UniqueStays />,
       },
       {
+        path: "uniquestays/:tilte",
+        element: <HomePage />,
+      },
+      {
         path: "signin",
         element: <SignIn />,
       },
