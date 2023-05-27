@@ -2,24 +2,42 @@ import { BiBed } from "react-icons/bi";
 import { TbBath } from "react-icons/tb";
 import { MdPersonOutline, MdArrowRight } from "react-icons/md";
 import CalenderPicker from "../../components/CalenderPicker";
-import { useSelector } from "react-redux";
-const HomePage = () => {
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { fetchHomePageDetail } from "../../features/fetchData/homePageDetailSlice";
+const HouseDetail = () => {
+  const { slug } = useParams();
+  const dispatch = useDispatch();
+  const { homePageDetail } = useSelector((store) => store.homePageDetail);
+  console.log(homePageDetail);
+
+  useEffect(() => {
+    dispatch(fetchHomePageDetail(slug));
+  }, [dispatch, slug]);
+
   const { days } = useSelector((store) => store.dayRange);
   //This page will recive sanity data
   //And redux data
+
   return (
     <div className="text-black font-poppins bg-purple-300 w-full grid sm:grid-cols-5 px-6">
       <div className="col-span-2 no-scrollbar h-screen overflow-scroll">
         <div className="col-span-2">
-          <h1 className="text-3xl font-medium">Mirror House Sud</h1>
+          <h1 className="text-3xl font-medium">
+            {homePageDetail.nameOfProduct}
+          </h1>
         </div>
         <div className="col-span-2">
-          <p className="font-light text-sm ita">Ho Chi Minh City, Viet Nam</p>
+          <p className="font-light text-sm ita">
+            {homePageDetail.city}, {homePageDetail.country}
+          </p>
         </div>
         {/* Money */}
         <div>
           <p className="text-xl font-bold">
-            $200<span className="text-xs font-medium">/night</span>
+            ${homePageDetail.priceOfProduct}
+            <span className="text-xs font-medium">/night</span>
           </p>
         </div>
         {/* Money */}
@@ -39,7 +57,10 @@ const HomePage = () => {
             </span>
           </h1>
           <h1 className="w-1/2 text-xl font-medium">
-            Totals : <span className="font-bold text-2xl">${days * 200}</span>
+            Totals :{" "}
+            <span className="font-bold text-2xl">
+              ${days ? days * `${homePageDetail.priceOfProduct}` : 0}
+            </span>
           </h1>
         </div>
         {/* Money total */}
@@ -47,25 +68,20 @@ const HomePage = () => {
         <div className=" col-span-1 grid grid-cols-3">
           <div className="flex flex-col">
             <MdPersonOutline />
-            <p>4 guests</p>
+            <p>{homePageDetail.guests} guests</p>
           </div>
           <div className="flex flex-col">
             <BiBed />
-            <p>2 Bedrooms</p>
+            <p>{homePageDetail.rooms} Bedrooms</p>
           </div>
           <div className="flex flex-col">
             <TbBath />
-            <p>1 Bathroom</p>
+            <p>{homePageDetail.bathrooms} Bathroom</p>
           </div>
         </div>
         {/* Furniture */}
         <div className="col-span-2">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-          </p>
+          <p>{homePageDetail.describe}</p>
         </div>
         <div className="col-span-2 grid grid-cols-2 py-6 gap-2 text-sm font-light">
           <div className="flex items-center">
@@ -187,42 +203,44 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <div className="no-scrollbar col-span-3 p-3 overflow-scroll h-screen  gap-3 grid grid-cols-2">
-        <img
-          className="w-full rounded-3xl col-span-2"
-          src="https://moivaonhatoi.com/sites/uploads/2020/05/villa-la-gi-1.jpg"
-        ></img>{" "}
-        <img
-          className="w-full rounded-3xl col-span-1"
-          src="https://moivaonhatoi.com/sites/uploads/2020/05/villa-la-gi-1.jpg"
-        ></img>{" "}
-        <img
-          className="w-full rounded-3xl col-span-1"
-          src="https://moivaonhatoi.com/sites/uploads/2020/05/villa-la-gi-1.jpg"
-        ></img>
-        <img
-          className="w-full rounded-3xl col-span-2"
-          src="https://moivaonhatoi.com/sites/uploads/2020/05/villa-la-gi-1.jpg"
-        ></img>{" "}
-        <img
-          className="w-full rounded-3xl col-span-2"
-          src="https://moivaonhatoi.com/sites/uploads/2020/05/villa-la-gi-1.jpg"
-        ></img>{" "}
-        <img
-          className="w-full rounded-3xl col-span-1"
-          src="https://moivaonhatoi.com/sites/uploads/2020/05/villa-la-gi-1.jpg"
-        ></img>{" "}
-        <img
-          className="w-full rounded-3xl col-span-1"
-          src="https://moivaonhatoi.com/sites/uploads/2020/05/villa-la-gi-1.jpg"
-        ></img>
-        <img
-          className="w-full rounded-3xl col-span-2"
-          src="https://moivaonhatoi.com/sites/uploads/2020/05/villa-la-gi-1.jpg"
-        ></img>{" "}
-      </div>
+      {homePageDetail.imageGalleries && (
+        <div className="no-scrollbar col-span-3 p-3 overflow-scroll h-screen  gap-3 grid grid-cols-2">
+          <img
+            className="w-full h-full rounded-3xl col-span-2"
+            src={homePageDetail.imageGalleries[0]?.image?.url}
+          ></img>
+          <img
+            className="w-full rounded-3xl h-full col-span-1"
+            src={homePageDetail.imageGalleries[1]?.image?.url}
+          ></img>
+          <img
+            className="w-full h-full rounded-3xl col-span-1"
+            src={homePageDetail.imageGalleries[2]?.image?.url}
+          ></img>
+          <img
+            className="w-full h-full rounded-3xl col-span-2"
+            src={homePageDetail.imageGalleries[3]?.image?.url}
+          ></img>
+          <img
+            className="w-full h-full rounded-3xl col-span-2"
+            src={homePageDetail.imageGalleries[4]?.image?.url}
+          ></img>
+          <img
+            className="w-full h-full rounded-3xl col-span-1"
+            src={homePageDetail.imageGalleries[5]?.image?.url}
+          ></img>
+          <img
+            className="w-full h-full rounded-3xl col-span-1"
+            src={homePageDetail.imageGalleries[6]?.image?.url}
+          ></img>
+          <img
+            className="w-full h-full rounded-3xl col-span-2"
+            src={homePageDetail?.imageGalleries[7]?.image?.url}
+          ></img>
+        </div>
+      )}
     </div>
   );
 };
 
-export default HomePage;
+export default HouseDetail;

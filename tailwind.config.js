@@ -18,6 +18,7 @@ export default {
       lightBlue: "#144272",
       lighterBlue: "#205295",
       ocean: "#2C74B3",
+      yellow: "#fcff41",
     },
   },
   plugins: [],

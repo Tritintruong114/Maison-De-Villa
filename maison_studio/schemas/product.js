@@ -53,6 +53,12 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'guests',
+      title: 'Guests',
+      type: 'number',
+      validation: (Rule) => Rule.required(),
+    },
+    {
       name: 'roomStructure',
       title: 'Rooms Structure',
       type: 'number',
@@ -63,6 +69,12 @@ export default {
       title: 'Bathrooms Structure',
       type: 'number',
       validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'gallery',
+      title: 'Image Gallery',
+      type: 'array',
+      of: [{type: 'image'}],
     },
   ],
 }

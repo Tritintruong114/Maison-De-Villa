@@ -3,13 +3,14 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import HomePage from "./pages/homepage/HomePage.jsx";
+import HouseDetail from "./pages/houseDetail/HouseDetail.jsx";
 import CabinCottages from "./pages/cabincottages/CabinCottages.jsx";
 import EntireHomes from "./pages/entirehomes/EntireHomes.jsx";
 import UniqueStays from "./pages/uniquestays/UniqueStays.jsx";
 import SignIn from "./pages/userpage/SignIn.jsx";
 import { store } from "./app/store.jsx";
 import { Provider } from "react-redux";
+import MainPage from "./pages/mainpage/MainPage.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomePage />,
+        element: <MainPage />,
       },
       {
         path: "entirehomes",
@@ -32,8 +33,8 @@ const router = createBrowserRouter([
         element: <UniqueStays />,
       },
       {
-        path: "uniquestays/:tilte",
-        element: <HomePage />,
+        path: "uniquestays/:slug",
+        element: <HouseDetail />,
       },
       {
         path: "signin",

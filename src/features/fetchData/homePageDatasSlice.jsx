@@ -12,19 +12,23 @@ const initialState = {
 };
 
 export const fetchHomePageDatas = createAsyncThunk(
-  "getHomePageDatas",
+  "getHomePageDatas/Houses",
   async () => {
     try {
       const response = await sanityStore.fetch(`*[_type=="product"]{
-        "id":slug.current,
+        slug,
         "nameOfProduct":name,
         "priceOfProduct":price,
         "mainImageOfProduct": image.asset->url,
         "describe" : detail,
         "city" : city,
         "country": country,
+        "guests" : guests,
         "rooms" : roomStructure,
-        "bathrooms" : bathroomsStructure,      
+        "bathrooms" : bathroomsStructure,
+        "imageGalleries" : gallery[]{
+          "image":asset->{url}
+        },      
       }`);
       return response;
     } catch (error) {
@@ -40,13 +44,16 @@ export const homePageDatasSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchHomePageDatas.pending, (state) => {
+        state.isLoading = true;
         return state;
       })
       .addCase(fetchHomePageDatas.fulfilled, (state, action) => {
+        state.isLoading = false;
         // console.log(action.payload);
         state.homePageDatas = action.payload;
       })
       .addCase(fetchHomePageDatas.rejected, (state) => {
+        state.isLoading = true;
         return state;
       });
   },
