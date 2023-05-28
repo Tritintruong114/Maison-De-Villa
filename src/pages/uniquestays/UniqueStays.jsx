@@ -42,7 +42,7 @@ const UniqueStays = () => {
 
   return (
     <div className="grid font-poppins md:grid-cols-2 no-scrollbar w-full overflow-scroll gap-6 p-6 xl:grid-cols-3">
-      <div className="xl:col-span-3 col-span-2 w-full flex  justify-center items-center gap-3">
+      <div className="xl:col-span-3 col-span-1 md:col-span-2 w-full flex  justify-center items-center gap-3">
         <div>
           <button
             onClick={() => handleAll()}
