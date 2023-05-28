@@ -15,7 +15,7 @@ const UniqueStays = () => {
   }, [dispatch]);
 
   return (
-    <div className="grid font-poppins no-scrollbar w-full overflow-scroll gap-6 p-6 xl:grid-cols-3">
+    <div className="grid font-poppins md:grid-cols-2 no-scrollbar w-full overflow-scroll gap-6 p-6 xl:grid-cols-3">
       {homePageDatas.map((house) => {
         return (
           <>
@@ -43,7 +43,7 @@ const UniqueStays = () => {
                           </div>
                         </h1>
                         <p className="text-black text-xs absolute bottom-0">
-                          Ho Chi Minh, VN
+                          {house.city}, {house.country}
                         </p>
                       </div>
 

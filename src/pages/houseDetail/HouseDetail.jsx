@@ -6,8 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchHomePageDetail } from "../../features/fetchData/homePageDetailSlice";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import test from "./test.jpg";
 const HouseDetail = () => {
   const { slug } = useParams();
+  const handle = useFullScreenHandle();
   const dispatch = useDispatch();
   const { homePageDetail } = useSelector((store) => store.homePageDetail);
   console.log(homePageDetail);
@@ -21,8 +24,8 @@ const HouseDetail = () => {
   //And redux data
 
   return (
-    <div className="text-black font-poppins bg-purple-300 w-full grid sm:grid-cols-5 px-6">
-      <div className="sm:col-span-2 col-span-3 no-scrollbar h-screen overflow-scroll">
+    <div className="text-black font-poppins gap-5 bg-purple-300 w-full grid sm:grid-cols-5 px-6">
+      <div className="sm:col-span-2 col-span-3  p-3 no-scrollbar h-screen overflow-scroll">
         <div className="col-span-2">
           <h1 className="text-5xl font-bold">{homePageDetail.nameOfProduct}</h1>
         </div>
@@ -202,39 +205,79 @@ const HouseDetail = () => {
         </div>
       </div>
       {homePageDetail.imageGalleries && (
-        <div className="no-scrollbar col-span-3 p-3 overflow-scroll h-screen  gap-3 grid grid-cols-2">
-          <img
-            className="w-full h-full rounded-3xl col-span-2"
-            src={homePageDetail.imageGalleries[0]?.image?.url}
-          ></img>
-          <img
-            className="w-full rounded-3xl h-full col-span-1"
-            src={homePageDetail.imageGalleries[1]?.image?.url}
-          ></img>
-          <img
-            className="w-full h-full rounded-3xl col-span-1"
-            src={homePageDetail.imageGalleries[2]?.image?.url}
-          ></img>
-          <img
-            className="w-full h-full rounded-3xl col-span-2"
-            src={homePageDetail.imageGalleries[3]?.image?.url}
-          ></img>
-          <img
-            className="w-full h-full rounded-3xl col-span-2"
-            src={homePageDetail.imageGalleries[4]?.image?.url}
-          ></img>
-          <img
-            className="w-full h-full rounded-3xl col-span-1"
-            src={homePageDetail.imageGalleries[5]?.image?.url}
-          ></img>
-          <img
-            className="w-full h-full rounded-3xl col-span-1"
-            src={homePageDetail.imageGalleries[6]?.image?.url}
-          ></img>
-          <img
-            className="w-full h-full rounded-3xl col-span-2"
-            src={homePageDetail?.imageGalleries[7]?.image?.url}
-          ></img>
+        <div className="no-scrollbar shadow-xl col-span-3 p-3 overflow-scroll h-screen  gap-3 grid grid-cols-2">
+          <a
+            className="col-span-2"
+            href={homePageDetail.imageGalleries[0]?.image?.url}
+          >
+            <img
+              className="w-full h-full rounded-3xl col-span-2"
+              src={homePageDetail.imageGalleries[0]?.image?.url}
+            ></img>
+          </a>
+          <a
+            className="col-span-1"
+            href={homePageDetail.imageGalleries[1]?.image?.url}
+          >
+            <img
+              className="w-full rounded-3xl h-full col-span-1"
+              src={homePageDetail.imageGalleries[1]?.image?.url}
+            ></img>
+          </a>
+          <a
+            className="col-span-1"
+            href={homePageDetail.imageGalleries[2]?.image?.url}
+          >
+            <img
+              className="w-full h-full rounded-3xl col-span-1"
+              src={homePageDetail.imageGalleries[2]?.image?.url}
+            ></img>
+          </a>
+          <a
+            className="col-span-2"
+            href={homePageDetail.imageGalleries[3]?.image?.url}
+          >
+            <img
+              className="w-full h-full rounded-3xl col-span-2"
+              src={homePageDetail.imageGalleries[3]?.image?.url}
+            ></img>
+          </a>
+          <a
+            className="col-span-2"
+            href={homePageDetail.imageGalleries[4]?.image?.url}
+          >
+            <img
+              className="w-full h-full rounded-3xl col-span-2"
+              src={homePageDetail.imageGalleries[4]?.image?.url}
+            ></img>
+          </a>
+          <a
+            className="col-span-1"
+            href={homePageDetail.imageGalleries[5]?.image?.url}
+          >
+            <img
+              className="w-full h-full rounded-3xl col-span-1"
+              src={homePageDetail.imageGalleries[5]?.image?.url}
+            ></img>
+          </a>
+          <a
+            className="col-span-1"
+            href={homePageDetail.imageGalleries[6]?.image?.url}
+          >
+            <img
+              className="w-full h-full rounded-3xl col-span-1"
+              src={homePageDetail.imageGalleries[6]?.image?.url}
+            ></img>
+          </a>
+          <a
+            className="col-span-2"
+            href={homePageDetail.imageGalleries[7]?.image?.url}
+          >
+            <img
+              className="w-full h-full rounded-3xl col-span-2"
+              src={homePageDetail?.imageGalleries[7]?.image?.url}
+            ></img>
+          </a>
         </div>
       )}
     </div>
