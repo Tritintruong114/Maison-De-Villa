@@ -1,14 +1,10 @@
 import { sanityStore } from "../../lib/client";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-// const softDate = (a, b) => {
-//   return new Date(b.publishedAt).valueOf() - new Date(a.publishedAt).valueOf();
-// };
-// soft element to the lastest
-
 const initialState = {
   isLoading: false,
   homePageDatas: [],
+  homeFilter: [],
 };
 
 export const fetchHomePageDatas = createAsyncThunk(
@@ -17,6 +13,7 @@ export const fetchHomePageDatas = createAsyncThunk(
     try {
       const response = await sanityStore.fetch(`*[_type=="product"]{
         slug,
+        category[]->{title},
         "nameOfProduct":name,
         "priceOfProduct":price,
         "mainImageOfProduct": image.asset->url,
@@ -40,7 +37,12 @@ export const fetchHomePageDatas = createAsyncThunk(
 export const homePageDatasSlice = createSlice({
   name: "getHomePageDatas",
   initialState,
-  reducers: {},
+  reducers: {
+    filterCity: (state, action) => {
+      // console.log(action.payload);
+      state.homeFilter = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchHomePageDatas.pending, (state) => {
@@ -49,7 +51,6 @@ export const homePageDatasSlice = createSlice({
       })
       .addCase(fetchHomePageDatas.fulfilled, (state, action) => {
         state.isLoading = false;
-        // console.log(action.payload);
         state.homePageDatas = action.payload;
       })
       .addCase(fetchHomePageDatas.rejected, (state) => {
@@ -58,5 +59,7 @@ export const homePageDatasSlice = createSlice({
       });
   },
 });
+
+export const { filterCity } = homePageDatasSlice.actions;
 
 export default homePageDatasSlice.reducer;

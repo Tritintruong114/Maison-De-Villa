@@ -12,6 +12,7 @@ export const fetchHomePageDetail = createAsyncThunk(
       const response = await sanityStore.fetch(
         `*[_type == 'product' && slug.current == $slug][0]{
         slug,
+        category[]->{title},
         "nameOfProduct":name,
         "priceOfProduct":price,
         "mainImageOfProduct": image.asset->url,

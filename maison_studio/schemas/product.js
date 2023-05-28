@@ -47,6 +47,18 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      title: 'Categories',
+      name: 'category',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [{type: 'category'}],
+        },
+      ],
+    },
+
+    {
       name: 'country',
       title: 'Country',
       type: 'string',

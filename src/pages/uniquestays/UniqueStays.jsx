@@ -4,18 +4,52 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import CardSkeleton from "../../components/CardSkeleton";
 import { FaStar } from "react-icons/fa";
+import { fetchCityCategory } from "../../features/fetchData/cityCategory";
+import { filterCity } from "../../features/fetchData/homePageDatasSlice";
 const UniqueStays = () => {
   const { homePageDatas, isLoading } = useSelector(
     (store) => store.homePageDatas
   );
+  const { cityCategory } = useSelector((store) => store.cityCategories);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCityCategory());
+    // console.log(cityCategory);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchHomePageDatas());
   }, [dispatch]);
 
+  const handleFilter = (city) => {
+    dispatch(filterCity(city));
+  };
+
   return (
     <div className="grid font-poppins md:grid-cols-2 no-scrollbar w-full overflow-scroll gap-6 p-6 xl:grid-cols-3">
+      <div className="xl:col-span-3 col-span-2 w-full flex  justify-center items-center gap-3">
+        <div>
+          <button
+            onClick={() => handleFilter()}
+            className="px-3 bg-fall py-1 rounded-xl font-medium"
+          >
+            All
+          </button>
+        </div>
+        {cityCategory.map((city) => {
+          return (
+            <div key={city.title}>
+              <button
+                onClick={() => handleFilter(city.title)}
+                className="px-3 bg-fall py-1 rounded-xl font-medium"
+              >
+                {city.title}
+              </button>
+            </div>
+          );
+        })}
+      </div>
       {homePageDatas.map((house) => {
         return (
           <>
