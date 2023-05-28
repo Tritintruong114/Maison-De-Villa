@@ -50,6 +50,7 @@ export const homePageDatasSlice = createSlice({
         return state;
       })
       .addCase(fetchHomePageDatas.fulfilled, (state, action) => {
+        console.log(action.payload);
         state.isLoading = false;
         state.homePageDatas = action.payload;
       })

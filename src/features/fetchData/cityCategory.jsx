@@ -11,6 +11,7 @@ export const fetchCityCategory = createAsyncThunk(
     try {
       const response = await sanityStore.fetch(`*[_type == "category"]{
         title,
+        slug,
       }`);
       return response;
     } catch (error) {

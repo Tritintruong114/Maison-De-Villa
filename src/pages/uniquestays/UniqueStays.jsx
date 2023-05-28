@@ -6,24 +6,34 @@ import CardSkeleton from "../../components/CardSkeleton";
 import { FaStar } from "react-icons/fa";
 import { fetchCityCategory } from "../../features/fetchData/cityCategory";
 import { filterCity } from "../../features/fetchData/homePageDatasSlice";
+import { useState } from "react";
 const UniqueStays = () => {
   const { homePageDatas, isLoading } = useSelector(
     (store) => store.homePageDatas
   );
   const { cityCategory } = useSelector((store) => store.cityCategories);
+
+  const [filterCitys, setFilterCitys] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchCityCategory());
-    // console.log(cityCategory);
   }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchHomePageDatas());
   }, [dispatch]);
 
-  const handleFilter = (city) => {
-    dispatch(filterCity(city));
+  const filter = (city) => {
+    const filtered = homePageDatas.filter((house) => {
+      return house.city === city;
+    });
+    setFilterCitys(filtered);
+  };
+  console.log(filterCitys);
+
+  const handleAll = () => {
+    setFilterCitys(homePageDatas);
   };
 
   return (
@@ -31,7 +41,7 @@ const UniqueStays = () => {
       <div className="xl:col-span-3 col-span-2 w-full flex  justify-center items-center gap-3">
         <div>
           <button
-            onClick={() => handleFilter()}
+            onClick={() => handleAll()}
             className="px-3 bg-fall py-1 rounded-xl font-medium"
           >
             All
@@ -39,9 +49,9 @@ const UniqueStays = () => {
         </div>
         {cityCategory.map((city) => {
           return (
-            <div key={city.title}>
+            <div key={city.slug.current}>
               <button
-                onClick={() => handleFilter(city.title)}
+                onClick={() => filter(city.title)}
                 className="px-3 bg-fall py-1 rounded-xl font-medium"
               >
                 {city.title}

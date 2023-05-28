@@ -6,11 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchHomePageDetail } from "../../features/fetchData/homePageDetailSlice";
-import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import test from "./test.jpg";
 const HouseDetail = () => {
   const { slug } = useParams();
-  const handle = useFullScreenHandle();
   const dispatch = useDispatch();
   const { homePageDetail } = useSelector((store) => store.homePageDetail);
   console.log(homePageDetail);
