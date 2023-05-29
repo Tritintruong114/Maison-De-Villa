@@ -13,6 +13,7 @@
     "@reduxjs/toolkit": "^1.9.5",
     "@sanity/client": "^6.1.2",
     "@sanity/image-url": "^1.0.2",
+    "@stripe/stripe-js": "^1.53.0",
     "antd": "^5.5.1",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
