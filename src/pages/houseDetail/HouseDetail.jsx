@@ -37,9 +37,9 @@ const HouseDetail = () => {
         </div>
         {/* Money */}
         <div>
-          <p className="text-xl font-bold">
+          <p className="text-3xl font-bold">
             ${homePageDetail.priceOfProduct}
-            <span className="text-xs font-medium">/night</span>
+            <span className="text-xl font-medium">/night</span>
           </p>
         </div>
         {/* Money */}
@@ -54,14 +54,14 @@ const HouseDetail = () => {
           <div className="flex">
             <h1 className="w-1/2 text-xl font-medium">
               Your oder :{" "}
-              <span className="font-bold text-2xl">
+              <span className="font-bold text-3xl">
                 {days}
                 <span className="text-sm font-medium">/days</span>
               </span>
             </h1>
             <h1 className="w-1/2 text-xl font-medium">
-              Totals : <span className="font-bold text-2xl">$</span>
-              <span className="font-bold text-2xl">
+              Totals : <span className="font-bold text-3xl">$</span>
+              <span className="font-bold text-3xl">
                 {days ? caculatePriceTotal(homePageDetail.priceOfProduct) : 0}
               </span>
             </h1>
@@ -73,7 +73,7 @@ const HouseDetail = () => {
                   checkOut(caculatePriceTotal(homePageDetail.priceOfProduct))
                 )
               }
-              className="col-span-2 w-full text-xl font-bold bg-darkBrown bg-opacity-60 py-3 rounded-3xl"
+              className="col-span-2 w-full text-3xl font-bold bg-darkBrown bg-opacity-60 py-3 rounded-3xl"
             >
               Check out
             </button>
