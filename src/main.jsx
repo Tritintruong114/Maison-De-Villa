@@ -11,6 +11,7 @@ import SignIn from "./pages/userpage/SignIn.jsx";
 import { store } from "./app/store.jsx";
 import { Provider } from "react-redux";
 import MainPage from "./pages/mainpage/MainPage.jsx";
+import CheckOut from "./pages/checkout/CheckOut.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "signin",
         element: <SignIn />,
+      },
+      {
+        path: "check-out",
+        element: <CheckOut />,
       },
     ],
   },

@@ -3,20 +3,24 @@ import { TbBath } from "react-icons/tb";
 import { MdPersonOutline, MdArrowRight } from "react-icons/md";
 import CalenderPicker from "../../components/CalenderPicker";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchHomePageDetail } from "../../features/fetchData/homePageDetailSlice";
+import { checkOut } from "../../features/dayRange/dayRangeSlice";
 const HouseDetail = () => {
   const { slug } = useParams();
   const dispatch = useDispatch();
   const { homePageDetail } = useSelector((store) => store.homePageDetail);
-  console.log(homePageDetail);
+  const { days } = useSelector((store) => store.dayRange);
 
   useEffect(() => {
     dispatch(fetchHomePageDetail(slug));
   }, [dispatch, slug]);
 
-  const { days } = useSelector((store) => store.dayRange);
+  const caculatePriceTotal = (price) => {
+    const totalPrice = days * price;
+    return totalPrice;
+  };
   //This page will recive sanity data
   //And redux data
 
@@ -46,20 +50,34 @@ const HouseDetail = () => {
         </div>
         {/* Calender */}
         {/* Money total */}
-        <div className="col-span-2 flex py-6">
-          <h1 className="w-1/2 text-xl font-medium">
-            Your oder :{" "}
-            <span className="font-bold text-2xl">
-              {days}
-              <span className="text-sm font-medium">/days</span>
-            </span>
-          </h1>
-          <h1 className="w-1/2 text-xl font-medium">
-            Totals :{" "}
-            <span className="font-bold text-2xl">
-              ${days ? days * `${homePageDetail.priceOfProduct}` : 0}
-            </span>
-          </h1>
+        <div className="col-span-2 flex flex-col py-6">
+          <div className="flex">
+            <h1 className="w-1/2 text-xl font-medium">
+              Your oder :{" "}
+              <span className="font-bold text-2xl">
+                {days}
+                <span className="text-sm font-medium">/days</span>
+              </span>
+            </h1>
+            <h1 className="w-1/2 text-xl font-medium">
+              Totals : <span className="font-bold text-2xl">$</span>
+              <span className="font-bold text-2xl">
+                {days ? caculatePriceTotal(homePageDetail.priceOfProduct) : 0}
+              </span>
+            </h1>
+          </div>
+          <Link to="/check-out">
+            <button
+              onClick={() =>
+                dispatch(
+                  checkOut(caculatePriceTotal(homePageDetail.priceOfProduct))
+                )
+              }
+              className="col-span-2 w-full text-xl font-bold bg-darkBrown bg-opacity-60 py-3 rounded-3xl"
+            >
+              Check out
+            </button>
+          </Link>
         </div>
         {/* Money total */}
         {/* Furniture */}
