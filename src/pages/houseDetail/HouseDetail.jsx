@@ -226,7 +226,7 @@ const HouseDetail = () => {
             href={homePageDetail.imageGalleries[0]?.image?.url}
           >
             <img
-              className="w-full h-full rounded-3xl col-span-2"
+              className="w-full h-full object-cover rounded-3xl col-span-2"
               src={homePageDetail.imageGalleries[0]?.image?.url}
             ></img>
           </a>
@@ -235,7 +235,7 @@ const HouseDetail = () => {
             href={homePageDetail.imageGalleries[1]?.image?.url}
           >
             <img
-              className="w-full rounded-3xl h-full col-span-1"
+              className="w-full rounded-3xl h-full object-cover col-span-1"
               src={homePageDetail.imageGalleries[1]?.image?.url}
             ></img>
           </a>
@@ -244,7 +244,7 @@ const HouseDetail = () => {
             href={homePageDetail.imageGalleries[2]?.image?.url}
           >
             <img
-              className="w-full h-full rounded-3xl col-span-1"
+              className="w-full h-full object-cover rounded-3xl col-span-1"
               src={homePageDetail.imageGalleries[2]?.image?.url}
             ></img>
           </a>
@@ -253,7 +253,7 @@ const HouseDetail = () => {
             href={homePageDetail.imageGalleries[3]?.image?.url}
           >
             <img
-              className="w-full h-full rounded-3xl col-span-2"
+              className="w-full h-full object-cover rounded-3xl col-span-2"
               src={homePageDetail.imageGalleries[3]?.image?.url}
             ></img>
           </a>
@@ -262,7 +262,7 @@ const HouseDetail = () => {
             href={homePageDetail.imageGalleries[4]?.image?.url}
           >
             <img
-              className="w-full h-full rounded-3xl col-span-2"
+              className="w-full h-full object-cover rounded-3xl col-span-2"
               src={homePageDetail.imageGalleries[4]?.image?.url}
             ></img>
           </a>
@@ -271,7 +271,7 @@ const HouseDetail = () => {
             href={homePageDetail.imageGalleries[5]?.image?.url}
           >
             <img
-              className="w-full h-full rounded-3xl col-span-1"
+              className="w-full h-full object-cover rounded-3xl col-span-1"
               src={homePageDetail.imageGalleries[5]?.image?.url}
             ></img>
           </a>
@@ -280,7 +280,7 @@ const HouseDetail = () => {
             href={homePageDetail.imageGalleries[6]?.image?.url}
           >
             <img
-              className="w-full h-full rounded-3xl col-span-1"
+              className="w-full h-full object-cover rounded-3xl col-span-1"
               src={homePageDetail.imageGalleries[6]?.image?.url}
             ></img>
           </a>
@@ -289,7 +289,7 @@ const HouseDetail = () => {
             href={homePageDetail.imageGalleries[7]?.image?.url}
           >
             <img
-              className="w-full h-full rounded-3xl col-span-2"
+              className="w-full h-full object-cover rounded-3xl col-span-2"
               src={homePageDetail?.imageGalleries[7]?.image?.url}
             ></img>
           </a>
