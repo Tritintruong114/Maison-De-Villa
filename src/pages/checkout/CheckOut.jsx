@@ -1,5 +1,11 @@
+import createVnPayOrder from "./connectVnPay";
+
 const CheckOut = () => {
-  return <div>CheckOut</div>;
+  return (
+    <div>
+      <button onClick={() => createVnPayOrder()}>createVnPayOrder</button>
+    </div>
+  );
 };
 
 export default CheckOut;
