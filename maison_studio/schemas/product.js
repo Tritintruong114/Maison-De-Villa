@@ -28,6 +28,7 @@ export default {
         maxLenght: 90,
       },
     },
+    {name: 'publishedAt', title: 'Published at', type: 'date'},
     {
       name: 'price',
       title: 'Price',

@@ -5,6 +5,11 @@ const initialState = {
   isLoading: false,
   homePageDatas: [],
   homeFilter: [],
+  mainPage: [],
+};
+
+const softDate = (a, b) => {
+  return new Date(b.publishedAt).valueOf() - new Date(a.publishedAt).valueOf();
 };
 
 export const fetchHomePageDatas = createAsyncThunk(
@@ -14,6 +19,7 @@ export const fetchHomePageDatas = createAsyncThunk(
       const response = await sanityStore.fetch(`*[_type=="product"]{
         slug,
         category[]->{title},
+        publishedAt,
         "nameOfProduct":name,
         "priceOfProduct":price,
         "mainImageOfProduct": image.asset->url,
@@ -51,7 +57,10 @@ export const homePageDatasSlice = createSlice({
       })
       .addCase(fetchHomePageDatas.fulfilled, (state, action) => {
         // console.log(action.payload);
+        const lastest = action.payload.sort(softDate).slice(0, 3);
+        console.log(lastest, "sorted");
         state.isLoading = false;
+        state.mainPage = lastest;
         state.homePageDatas = action.payload;
       })
       .addCase(fetchHomePageDatas.rejected, (state) => {

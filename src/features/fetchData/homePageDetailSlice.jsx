@@ -5,6 +5,7 @@ const initialState = {
   isLoading: false,
   homePageDetail: [],
 };
+
 export const fetchHomePageDetail = createAsyncThunk(
   "getHomePageDetail/House",
   async (slug) => {

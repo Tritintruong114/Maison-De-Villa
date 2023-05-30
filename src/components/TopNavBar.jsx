@@ -15,12 +15,12 @@ const TopNavBar = () => {
           onMouseLeave={() => setShowMenu(false)}
           className=" text-black bg-white md:invisible visible flex flex-col absolute w-full"
         >
-          <button className="active:bg-fall h-9 w-full hover:bg-lightBrown">
+          {/* <button className="active:bg-fall h-9 w-full hover:bg-lightBrown">
             <Link to="cabin&cottages">Cabin & cottages</Link>
           </button>
           <button className="active:bg-fall h-9 w-full hover:bg-lightBrown">
             <Link to="entirehomes">Entire Homes</Link>
-          </button>
+          </button> */}
           <button className="active:bg-fall h-9 w-full hover:bg-lightBrown">
             <Link to="uniquestays">Unique Stays</Link>
           </button>
@@ -34,12 +34,12 @@ const TopNavBar = () => {
           <Link to="/">Maison</Link>
         </h1>
         <div className="grid grid-cols-3 w-1/2   md:visible md:relative invisible absolute">
-          <button>
+          {/* <button>
             <Link to="cabin&cottages">Cabin & cottages</Link>
           </button>
           <button>
             <Link to="entirehomes">Entire Homes</Link>
-          </button>
+          </button> */}
           <button>
             <Link to="uniquestays">Unique Stays</Link>
           </button>
