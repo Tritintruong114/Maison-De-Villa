@@ -28,7 +28,9 @@ const HouseDetail = () => {
     <div className="text-black font-poppins gap-5 bg-purple-300 w-full grid sm:grid-cols-5 px-6">
       <div className="sm:col-span-2 col-span-3  p-3 no-scrollbar h-screen overflow-scroll">
         <div className="col-span-2">
-          <h1 className="text-5xl font-bold">{homePageDetail.nameOfProduct}</h1>
+          <h1 className="text-5xl font-bold">
+            {homePageDetail?.nameOfProduct}
+          </h1>
         </div>
         <div className="col-span-2">
           <p className="font-light text-sm ita">
@@ -66,7 +68,7 @@ const HouseDetail = () => {
               </span>
             </h1>
           </div>
-          <Link to="/check-out">
+          <Link to={`/check-out/${homePageDetail?.slug?.current}`}>
             <button
               onClick={() =>
                 dispatch(

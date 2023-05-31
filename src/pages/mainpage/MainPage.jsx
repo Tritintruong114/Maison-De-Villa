@@ -13,8 +13,8 @@ const MainPage = () => {
 
   useEffect(() => {
     dispatch(fetchHomePageDatas());
-  }, []);
-  console.log(homePageDatas.slice(0, 3));
+  }, [dispatch]);
+  // console.log(homePageDatas.slice(0, 3));
   return (
     <div className="font-poppins overflow-scroll no-scrollbar gap-12 flex flex-col p-6 bg-darkBrown h-full">
       {mainPage.map(() => {

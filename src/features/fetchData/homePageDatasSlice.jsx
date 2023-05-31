@@ -58,7 +58,7 @@ export const homePageDatasSlice = createSlice({
       .addCase(fetchHomePageDatas.fulfilled, (state, action) => {
         // console.log(action.payload);
         const lastest = action.payload.sort(softDate).slice(0, 3);
-        console.log(lastest, "sorted");
+        // console.log(lastest, "sorted");
         state.isLoading = false;
         state.mainPage = lastest;
         state.homePageDatas = action.payload;

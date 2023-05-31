@@ -42,8 +42,9 @@ const router = createBrowserRouter([
         element: <SignIn />,
       },
       {
-        path: "check-out",
+        path: "check-out/:slug",
         element: <CheckOut />,
+        // children: {},
       },
     ],
   },
