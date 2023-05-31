@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchHomePageDetail } from "../../features/fetchData/homePageDetailSlice";
 import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CheckOut = () => {
   const { slug } = useParams();
@@ -16,9 +18,13 @@ const CheckOut = () => {
     dispatch(fetchHomePageDetail(slug));
     console.log(homePageDetail);
   }, [dispatch, slug]);
+
+  const handlePaymentClick = () => {
+    toast.success("Success Payment");
+  };
   return (
-    <div className="grid h-full overflow-hidden  font-poppins gap-6  p-6 w-full sm:grid-cols-6">
-      <div className="sm:col-span-4  bg-fall bg-opacity-30 flex flex-col h-3/4  justify-center items-center   rounded-3xl">
+    <div className="grid h-full overflow-scroll sm:overflow-hidden  font-poppins gap-6  p-6 w-full sm:grid-cols-6">
+      <div className="sm:col-span-4  bg-fall bg-opacity-30 flex flex-col h-full  justify-center items-center   rounded-3xl">
         <h1 className="text-4xl pt-12 font-bold">Payment details</h1>
         <div className="flex flex-col w-3/4">
           <span className="py-1 text-xl opacity-60">Email address</span>
@@ -47,8 +53,8 @@ const CheckOut = () => {
 
         <div className="w-3/4">
           <div className="flex pt-12 justify-between items-center ">
-            <h1 className="text-xl">Name of product</h1>
-            <h1 className="text-3xl font-bold">
+            <h1 className="text-xl">Name</h1>
+            <h1 className="sm:text-3xl text-xl font-bold">
               {homePageDetail.nameOfProduct}
             </h1>
           </div>
@@ -75,14 +81,17 @@ const CheckOut = () => {
           <h1 className="text-3xl font-bold">${total + platformFee}</h1>
         </div>
         <div className="w-3/4 pb-12">
-          <button className="py-6 w-full bg-fall rounded-3xl">
+          <button
+            onClick={() => handlePaymentClick()}
+            className="py-6 w-full text-3xl font-medium bg-fall rounded-3xl"
+          >
             Make Payment
           </button>
         </div>
       </div>
-      <div className="sm:col-span-2 overflow-scroll shadow-2xl no-scrollbar relative flex-col flex h-3/4 rounded-3xl bg-white ">
+      <div className="sm:col-span-2 sm:overflow-scroll shadow-2xl no-scrollbar relative flex-col flex h-3/4 rounded-3xl bg-white ">
         <div className="absolute p-6">
-          {homePageDetail.imageGalleries.map((image) => {
+          {homePageDetail?.imageGalleries?.map((image) => {
             return (
               <>
                 <img
@@ -93,6 +102,9 @@ const CheckOut = () => {
             );
           })}
         </div>
+      </div>
+      <div className="absolute">
+        <ToastContainer />
       </div>
     </div>
   );
