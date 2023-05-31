@@ -4,6 +4,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isLoading: false,
   homePageDetail: [],
+  comment: [],
 };
 
 export const fetchHomePageDetail = createAsyncThunk(
@@ -40,7 +41,15 @@ export const fetchHomePageDetail = createAsyncThunk(
 export const homePageDetailSlice = createSlice({
   name: "getHomePageDetail",
   initialState,
-  reducers: {},
+  reducers: {
+    addComment(state, action) {
+      console.log(action.payload);
+      state.comment.push(action.payload);
+    },
+    // deleteComment(state, action) {
+    //   con
+    // },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchHomePageDetail.pending, (state) => {
@@ -58,4 +67,5 @@ export const homePageDetailSlice = createSlice({
   },
 });
 
+export const { addComment } = homePageDetailSlice.actions;
 export default homePageDetailSlice.reducer;

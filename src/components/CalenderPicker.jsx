@@ -31,7 +31,7 @@ const CalenderPicker = () => {
   return (
     <div className="w-full flex justify-center items-center">
       <RangePicker
-        className=" w-full"
+        className=" w-full text-3xl"
         onChange={(values) => {
           setDates(
             values.map((item) => {

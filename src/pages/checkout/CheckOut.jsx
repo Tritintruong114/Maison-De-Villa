@@ -17,7 +17,7 @@ const CheckOut = () => {
     console.log(homePageDetail);
   }, [dispatch, slug]);
   return (
-    <div className="grid h-full  font-poppins gap-6  p-6 w-full sm:grid-cols-6">
+    <div className="grid h-full overflow-hidden  font-poppins gap-6  p-6 w-full sm:grid-cols-6">
       <div className="sm:col-span-4  bg-fall bg-opacity-30 flex flex-col h-3/4  justify-center items-center   rounded-3xl">
         <h1 className="text-4xl pt-12 font-bold">Payment details</h1>
         <div className="flex flex-col w-3/4">
@@ -54,7 +54,7 @@ const CheckOut = () => {
           </div>
           <div className="flex w-full justify-between">
             <h1 className="text-3xl">
-              Price<span className="text-xl">/night</span>
+              Price<span className="text-xl">/day</span>
             </h1>
             <h1 className="text-3xl font-bold">
               ${homePageDetail.priceOfProduct}

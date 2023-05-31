@@ -4,14 +4,18 @@ import { MdPersonOutline, MdArrowRight } from "react-icons/md";
 import CalenderPicker from "../../components/CalenderPicker";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { useEffect } from "react";
+
 import { fetchHomePageDetail } from "../../features/fetchData/homePageDetailSlice";
 import { checkOut } from "../../features/dayRange/dayRangeSlice";
+import { useEffect } from "react";
+import Comments from "../../components/comment/Comments";
+
 const HouseDetail = () => {
   const { slug } = useParams();
   const dispatch = useDispatch();
   const { homePageDetail } = useSelector((store) => store.homePageDetail);
   const { days } = useSelector((store) => store.dayRange);
+  const { comment } = useSelector((store) => store.homePageDetail);
 
   useEffect(() => {
     dispatch(fetchHomePageDetail(slug));
@@ -28,26 +32,25 @@ const HouseDetail = () => {
     <div className="text-black font-poppins gap-5 bg-purple-300 w-full grid sm:grid-cols-5 px-6">
       <div className="sm:col-span-2 col-span-3  p-3 no-scrollbar h-screen overflow-scroll">
         <div className="col-span-2">
-          <h1 className="text-5xl font-bold">
+          <h1 className="text-6xl font-bold">
             {homePageDetail?.nameOfProduct}
           </h1>
-        </div>
-        <div className="col-span-2">
-          <p className="font-light text-sm ita">
+          <h1 className=" m-0 font-light text-xl">
             {homePageDetail.city}, {homePageDetail.country}
-          </p>
+          </h1>
         </div>
+        <div className="col-span-2"></div>
         {/* Money */}
-        <div>
-          <p className="text-3xl font-bold">
+        <div className="py-6">
+          <p className="text-6xl m-0 font-bold">
             ${homePageDetail.priceOfProduct}
-            <span className="text-xl font-medium">/night</span>
+            <span className="text-3xl font-medium">/day</span>
           </p>
         </div>
         {/* Money */}
         {/* Calender */}
         <div className="col-span-2 flex-col flex">
-          <h1 className="text-sm font-bold">Check Availability</h1>
+          <h1 className="text-xl font-bold">Check Availability</h1>
           <CalenderPicker />
         </div>
         {/* Calender */}
@@ -83,25 +86,25 @@ const HouseDetail = () => {
         </div>
         {/* Money total */}
         {/* Furniture */}
-        <div className=" col-span-1 grid grid-cols-3">
-          <div className="flex flex-col">
+        <div className=" col-span-1 grid grid-cols-3 gap-3">
+          <div className="flex py-3 border-2 flex-col rounded-3xl justify-center items-center h-full">
             <MdPersonOutline />
-            <p>{homePageDetail.guests} guests</p>
+            <p className="m-0">{homePageDetail.guests} guests</p>
           </div>
-          <div className="flex flex-col">
+          <div className="flex py-3 border-2 flex-col rounded-3xl justify-center items-center h-full">
             <BiBed />
-            <p>{homePageDetail.rooms} Bedrooms</p>
+            <p className="m-0">{homePageDetail.rooms} Bedrooms</p>
           </div>
-          <div className="flex flex-col">
+          <div className="flex py-3 border-2 flex-col rounded-3xl justify-center items-center h-full">
             <TbBath />
-            <p>{homePageDetail.bathrooms} Bathroom</p>
+            <p className="m-0">{homePageDetail.bathrooms} Bathroom</p>
           </div>
         </div>
         {/* Furniture */}
         <div className="col-span-2">
-          <p>{homePageDetail.describe}</p>
+          <p className="m-0 text-3xl w-full py-6">{homePageDetail.describe}</p>
         </div>
-        <div className="col-span-2 grid grid-cols-2 py-6 gap-2 text-sm font-light">
+        <div className="col-span-2 text-xl grid grid-cols-2 py-6 gap-2 font-light">
           <div className="flex items-center">
             <MdArrowRight />
             <p className="m-0">Kitchen</p>
@@ -137,88 +140,42 @@ const HouseDetail = () => {
           </div>
         </div>
         <div className="col-span-2 grid grid-cols-3">
-          <div className="col-span-1">Star</div>
-          <div className="col-span-2">Review</div>
+          {/* <div className="col-span-1 text-3xl">Star</div> */}
         </div>
-        <div className="col-span-2 py-6">
-          <div className="flex items-center">
-            <img
-              className="h-9"
-              src="https://images.freeimages.com/fic/images/icons/61/dragon_soft/512/user.png"
-            ></img>
-            <div>
-              <h1 className="font-medium">Name User</h1>
-              <p className="font-light opacity-60 italic text-sm">Date</p>
-            </div>
-          </div>
-          <div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-            </p>
-          </div>
-        </div>{" "}
-        <div className="col-span-2 py-6">
-          <div className="flex items-center">
-            <img
-              className="h-9"
-              src="https://images.freeimages.com/fic/images/icons/61/dragon_soft/512/user.png"
-            ></img>
-            <div>
-              <h1 className="font-medium">Name User</h1>
-              <p className="font-light opacity-60 italic text-sm">Date</p>
-            </div>
-          </div>
-          <div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-            </p>
-          </div>
-        </div>{" "}
-        <div className="col-span-2 py-6">
-          <div className="flex items-center">
-            <img
-              className="h-9"
-              src="https://images.freeimages.com/fic/images/icons/61/dragon_soft/512/user.png"
-            ></img>
-            <div>
-              <h1 className="font-medium">Name User</h1>
-              <p className="font-light opacity-60 italic text-sm">Date</p>
-            </div>
-          </div>
-          <div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-            </p>
-          </div>
-        </div>{" "}
-        <div className="col-span-2 py-6">
-          <div className="flex items-center">
-            <img
-              className="h-9"
-              src="https://images.freeimages.com/fic/images/icons/61/dragon_soft/512/user.png"
-            ></img>
-            <div>
-              <h1 className="font-medium">Name User</h1>
-              <p className="font-light opacity-60 italic text-sm">Date</p>
-            </div>
-          </div>
-          <div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-            </p>
-          </div>
+        {/* <div className="col-span-2 text-3xl py-6">Reviews</div> */}
+        {/* Comment section */}
+        <div>
+          <Comments />
+        </div>
+        <div className="w-full h-full gap-3 flex-col flex">
+          {comment?.map((comment) => {
+            return (
+              <div
+                key={comment?.name}
+                className="col-span-2 py-6 bg-fall bg-opacity-30 pl-3 rounded-3xl"
+              >
+                <div className="flex items-center gap-3">
+                  <img
+                    className="h-9"
+                    src="https://images.freeimages.com/fic/images/icons/61/dragon_soft/512/user.png"
+                  ></img>
+                  <div>
+                    <h1 className="m-0 font-medium">
+                      {comment?.map((name) => name.name)}
+                    </h1>
+                    <p className="m-0 font-light opacity-60 italic text-sm">
+                      3 Days ago
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <p className="m-0 w-3/4 text-black pt-3">
+                    {comment?.map((comment) => comment.comment)}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
       {homePageDetail.imageGalleries && (
@@ -300,5 +257,4 @@ const HouseDetail = () => {
     </div>
   );
 };
-
 export default HouseDetail;
