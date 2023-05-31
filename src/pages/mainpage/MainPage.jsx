@@ -1,14 +1,10 @@
 import { Link } from "react-router-dom";
-import homeimg from "./homeimg.jpg";
-import img2 from "./img2.jpg";
 import { fetchHomePageDatas } from "../../features/fetchData/homePageDatasSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 
 const MainPage = () => {
-  const { homePageDatas, mainPage } = useSelector(
-    (store) => store.homePageDatas
-  );
+  const { homePageDatas } = useSelector((store) => store.homePageDatas);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,11 +12,11 @@ const MainPage = () => {
   }, [dispatch]);
   // console.log(homePageDatas.slice(0, 3));
   return (
-    <div className="font-poppins overflow-scroll no-scrollbar gap-12 flex flex-col p-6 bg-darkBrown h-full">
+    <div className="font-poppins overflow-scroll no-scrollbar gap-12 flex flex-col p-12 sm:pt-0 sm:pr-24 sm:pl-24 h-full">
       {homePageDatas.map((main) => {
         return (
           <>
-            <div className="sm:w-full flex-shrink-0 w-full relative h-3/4 ">
+            <div className="sm:w-full shadow-xl rounded-3xl flex-shrink-0 w-full relative h-2/4 sm:h-3/4 ">
               <Link to={`uniquestays/${main?.slug?.current}`}>
                 <img
                   className=" rounded-3xl absolute h-full w-full object-cover"

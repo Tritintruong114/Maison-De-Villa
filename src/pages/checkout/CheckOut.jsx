@@ -89,7 +89,7 @@ const CheckOut = () => {
           </button>
         </div>
       </div>
-      <div className="sm:col-span-2 sm:overflow-scroll shadow-2xl no-scrollbar relative flex-col flex h-3/4 rounded-3xl bg-white ">
+      <div className="sm:col-span-2 sm:overflow-scroll shadow-2xl no-scrollbar relative flex-col flex h-full rounded-3xl bg-white ">
         <div className="absolute p-6">
           {homePageDetail?.imageGalleries?.map((image) => {
             return (

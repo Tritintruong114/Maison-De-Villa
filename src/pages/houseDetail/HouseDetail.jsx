@@ -102,7 +102,7 @@ const HouseDetail = () => {
         </div>
         {/* Furniture */}
         <div className="col-span-2">
-          <p className="m-0 text-3xl w-full py-6">{homePageDetail.describe}</p>
+          <p className="m-0 text-xl w-full py-6">{homePageDetail.describe}</p>
         </div>
         <div className="col-span-2 text-xl grid grid-cols-2 py-6 gap-2 font-light">
           <div className="flex items-center">

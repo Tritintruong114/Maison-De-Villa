@@ -9,7 +9,7 @@ const TopNavBar = () => {
     console.log(showMenu);
   };
   return (
-    <div className="flex relative font-poppins w-full h-full">
+    <div className="flex shadow-md relative pb-6 font-poppins w-full h-full">
       {showMenu && (
         <div
           onMouseLeave={() => setShowMenu(false)}
@@ -30,7 +30,7 @@ const TopNavBar = () => {
         </div>
       )}
       <div className=" gap-3 text-center md:justify-normal px-6 justify-between h-28 sm:h-12 w-full flex items-center">
-        <h1 className="text-3xl font-bold m-0">
+        <h1 className="text-5xl font-bold m-0">
           <Link to="/">Maison</Link>
         </h1>
         <div className="grid grid-cols-3 w-1/2   md:visible md:relative invisible absolute">
@@ -54,9 +54,11 @@ const TopNavBar = () => {
         </div>
       </div>
       <div className="w-1/6 flex absolute md:relative md:visible invisible  justify-end">
-        <button className="h-full md:w-3/4 sm:w-full bg-fall text-black mr-9 rounded-3xl">
-          <Link to="signin">Sign in</Link>
-        </button>
+        <Link className="h-full md:w-3/4 sm:w-full" to="signin">
+          <button className="h-full md:w-3/4 sm:w-full bg-fall text-black mr-9 rounded-3xl">
+            Sign in
+          </button>
+        </Link>
       </div>
     </div>
   );

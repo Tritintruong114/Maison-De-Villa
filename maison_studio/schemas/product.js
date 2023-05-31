@@ -36,8 +36,8 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
-      name: 'start',
-      title: 'Start',
+      name: 'star',
+      title: 'Star',
       type: 'number',
       validation: (Rule) => Rule.required(),
     },
