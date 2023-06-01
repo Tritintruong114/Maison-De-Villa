@@ -2,12 +2,15 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { addComment } from "../../features/fetchData/homePageDetailSlice";
 import { useDispatch } from "react-redux";
+import { sanityStore } from "../../lib/client";
 const Comments = () => {
   const [comments, setComments] = useState([
     { name: "truongtritin.bee@gmail.com" },
     { comment: "This is testing" },
   ]);
 
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
   // const [comment, setComment] = useState("");
 
   const [reivew, setReview] = useState(false);
@@ -19,10 +22,28 @@ const Comments = () => {
     setComments();
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setReview(false);
-    dispatch(addComment(comments));
+    // e.preventDefault();
+
+    try {
+      await sanityStore.create({
+        _type: "comment",
+        title: title,
+        body: body,
+      });
+      console.log("Document created!");
+      setTitle("");
+      setBody("");
+    } catch (error) {
+      console.error("Error creating document:", error);
+    }
   };
+
+  // const handleSubmit = () => {
+  //   setReview(false);
+  //   dispatch(addComment(comments));
+  // };
 
   useEffect(() => {
     dispatch(addComment(comments));
@@ -37,9 +58,9 @@ const Comments = () => {
         Reviews
       </button>
       {reivew == true && (
-        <>
+        <div className="w-full gap-3 ">
           <textarea
-            onChange={(e) => setComments.comment(e?.target?.value)}
+            onChange={(e) => setBody(e?.target?.value)}
             className="w-full mt-3 pl-3 bg-darkBrown bg-opacity-30  rounded-3xl focus:outline py-6"
             placeholder="say something"
           />
@@ -49,7 +70,7 @@ const Comments = () => {
           >
             Submit
           </button>
-        </>
+        </div>
       )}
     </div>
   );

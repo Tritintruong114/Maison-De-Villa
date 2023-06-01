@@ -17,7 +17,7 @@ const MainPage = () => {
       {homePageDatas.map((main) => {
         return (
           <>
-            <div className="sm:w-full shadow-xl rounded-3xl flex-shrink-0 w-full relative h-2/4 sm:h-3/4 ">
+            <div className="sm:w-full hover:shadow-2xl hover:scale-105 transition ease-in-out shadow-xl rounded-3xl flex-shrink-0 w-full relative h-2/4 sm:h-3/4 ">
               <Link to={`uniquestays/${main?.slug?.current}`}>
                 <img
                   className=" rounded-3xl absolute h-full w-full object-cover"

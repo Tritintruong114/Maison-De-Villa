@@ -1,21 +1,21 @@
-import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import signInimg from "./signInimg.jpg";
+import { auth, provider } from "../../googleServices/config";
+import { signInWithPopup } from "firebase/auth";
+import google from "./google.png";
+import { useNavigate } from "react-router-dom";
+
 const SignIn = () => {
-  const [signInForm, setSignInForm] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const showSignInForm = () => {
-    setSignInForm(true);
+  const signInButton = async () => {
+    const response = await signInWithPopup(auth, provider);
+    const saveResponse = response;
+    localStorage.setItem("email", saveResponse.user.email);
+    navigate("/");
   };
 
-  const handleLogin = () => {
-    setPassword("");
-    setEmail("");
-    toast.success("Welcome Back !");
-  };
   return (
     <div className="grid gap-6 relative font-poppins p-6 grid-cols-1 sm:grid-cols-9 h-full">
       <div className="sm:col-span-6 shadow-xl rounded-3xl h-full">
@@ -32,49 +32,15 @@ const SignIn = () => {
           Welcome to <br />{" "}
           <p className="m-0 italic font-bold text-4xl">Maison De Villa</p>
         </h1>
-        {!signInForm && (
+        <div className="shadow-xl active:bg-darkBrown hover:scale-110 transition ease-in-out flex px-6 py-1 gap-3 bg-darkBrown bg-opacity-30 rounded-3xl">
           <button
-            onClick={() => showSignInForm()}
-            className="py-3 px-6 bg-darkBrown bg-opacity-30 rounded-3xl"
+            className="text-xl  font-medium"
+            onClick={() => signInButton()}
           >
-            Sign In
+            Sign In with
           </button>
-        )}
-        {signInForm == true && (
-          <div className="col-span-3 w-3/4 flex flex-col gap-3">
-            <div className="flex flex-col w-full">
-              <span className="m-0 pt-3 text-xl opacity-90 w-full">
-                Gmail Adress
-              </span>
-              <input
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-                type="email"
-                placeholder="maisondevilla@gmail.com"
-                className="py-3 rounded-3xl pl-3 focus:outline-none w-full"
-              ></input>
-            </div>{" "}
-            <div className="flex flex-col w-full">
-              <span className="m-0 pt-3 text-xl opacity-90">Password</span>
-              <input
-                onChange={(e) => setPassword(e.target.value)}
-                value={password}
-                type="password"
-                placeholder="******"
-                className="py-3 rounded-3xl pl-3 focus:outline-none w-full"
-              ></input>
-            </div>
-            <div>
-              <button className="opacity-60">Forgot password?</button>
-            </div>
-            <button
-              onClick={() => handleLogin()}
-              className="py-3 rounded-3xl px-6 bg-darkBrown bg-opacity-30 "
-            >
-              Login
-            </button>
-          </div>
-        )}
+          <img src={google}></img>
+        </div>
       </div>
       <div className="absolute">
         <ToastContainer />

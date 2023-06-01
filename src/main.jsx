@@ -12,11 +12,11 @@ import { store } from "./app/store.jsx";
 import { Provider } from "react-redux";
 import MainPage from "./pages/mainpage/MainPage.jsx";
 import CheckOut from "./pages/checkout/CheckOut.jsx";
-import {
-  NovuProvider,
-  PopoverNotificationCenter,
-  NotificationBell,
-} from '@novu/notification-center';
+// import {
+//   NovuProvider,
+//   PopoverNotificationCenter,
+//   NotificationBell,
+// } from '@novu/notification-center';
 
 const router = createBrowserRouter([
   {
@@ -55,7 +55,6 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

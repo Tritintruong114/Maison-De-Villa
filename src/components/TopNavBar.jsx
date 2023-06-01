@@ -1,13 +1,26 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { GoThreeBars } from "react-icons/go";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import user from "./user.png";
 const TopNavBar = () => {
   const [showMenu, setShowMenu] = useState(false);
-
+  const navigate = useNavigate();
   const handleShowMenuDropDown = () => {
     setShowMenu(!showMenu);
     console.log(showMenu);
   };
+
+  const logOut = () => {
+    localStorage.clear();
+    navigate("/signin");
+    toast.success("You are Log Out");
+  };
+
+  useEffect(() => {
+    console.log(localStorage.getItem("email"));
+  }, []);
   return (
     <div className="flex shadow-md relative pb-6 font-poppins w-full h-full">
       {showMenu && (
@@ -40,8 +53,8 @@ const TopNavBar = () => {
           <button>
             <Link to="entirehomes">Entire Homes</Link>
           </button> */}
-          <button>
-            <Link to="uniquestays">Unique Stays</Link>
+          <button className="text-xl font-medium hover:text-darkBrown">
+            <Link to="uniquestays">Galleries</Link>
           </button>
         </div>
         <div className="visible text-black z-10 md:invisible md:absolute">
@@ -54,11 +67,28 @@ const TopNavBar = () => {
         </div>
       </div>
       <div className="w-1/6 flex absolute md:relative md:visible invisible  justify-end">
-        <Link className="h-full md:w-3/4 sm:w-full" to="signin">
+        {!localStorage.getItem("email") ? (
           <button className="h-full md:w-3/4 sm:w-full bg-fall text-black mr-9 rounded-3xl">
-            Sign in
+            <Link className="h-full md:w-3/4 sm:w-full" to="signin">
+              Sign in
+            </Link>
           </button>
-        </Link>
+        ) : (
+          <div className="flex w-full items-center gap-3">
+            <img className="h-12" src={user}></img>
+            <button
+              onClick={() => logOut()}
+              className="h-full active:bg-darkBrown md:w-3/4 sm:w-full bg-fall text-black mr-9 rounded-3xl"
+            >
+              <Link
+                className="h-full hover:text-darkBrown  md:w-3/4 sm:w-full"
+                to="signin"
+              >
+                Log out
+              </Link>
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

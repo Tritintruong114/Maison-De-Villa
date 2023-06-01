@@ -12,6 +12,7 @@ import imageUrlBuilder from "@sanity/image-url";
 export const sanityStore = createClient({
   projectId: "ulqpb6bd",
   dataset: "production",
+  token: import.meta.env.SANITY_AUTH_TOKEN,
   apiVersion: "2023-05-05",
   useCdn: true,
 });

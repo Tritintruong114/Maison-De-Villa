@@ -9,6 +9,7 @@ import { fetchHomePageDetail } from "../../features/fetchData/homePageDetailSlic
 import { checkOut } from "../../features/dayRange/dayRangeSlice";
 import { useEffect } from "react";
 import Comments from "../../components/comment/Comments";
+import { ToastContainer, toast } from "react-toastify";
 
 const HouseDetail = () => {
   const { slug } = useParams();
@@ -21,9 +22,22 @@ const HouseDetail = () => {
     dispatch(fetchHomePageDetail(slug));
   }, [dispatch, slug]);
 
+  useEffect(() => {
+    localStorage.getItem("email");
+  }, []);
+
   const caculatePriceTotal = (price) => {
     const totalPrice = days * price;
     return totalPrice;
+  };
+
+  const notLogin = () => {
+    if (!localStorage.getItem("email")) {
+      toast.error("Need Login");
+    }
+  };
+  const checkOutButton = () => {
+    dispatch(checkOut(caculatePriceTotal(homePageDetail.priceOfProduct)));
   };
   //This page will recive sanity data
   //And redux data
@@ -31,6 +45,9 @@ const HouseDetail = () => {
   return (
     <div className="text-black font-poppins gap-5 bg-purple-300 w-full grid sm:grid-cols-5 px-6">
       <div className="sm:col-span-2 col-span-3  p-3 no-scrollbar h-screen overflow-scroll">
+        <div className="absolute">
+          <ToastContainer />
+        </div>
         <div className="col-span-2">
           <h1 className="text-6xl font-bold">
             {homePageDetail?.nameOfProduct}
@@ -71,18 +88,23 @@ const HouseDetail = () => {
               </span>
             </h1>
           </div>
-          <Link to={`/check-out/${homePageDetail?.slug?.current}`}>
+          {localStorage.getItem("email") ? (
+            <Link to={`/check-out/${homePageDetail?.slug?.current}`}>
+              <button
+                onClick={() => checkOutButton()}
+                className="col-span-2 w-full text-3xl font-bold bg-darkBrown bg-opacity-60 py-3 rounded-3xl"
+              >
+                Check out
+              </button>
+            </Link>
+          ) : (
             <button
-              onClick={() =>
-                dispatch(
-                  checkOut(caculatePriceTotal(homePageDetail.priceOfProduct))
-                )
-              }
+              onClick={() => notLogin()}
               className="col-span-2 w-full text-3xl font-bold bg-darkBrown bg-opacity-60 py-3 rounded-3xl"
             >
               Check out
             </button>
-          </Link>
+          )}
         </div>
         {/* Money total */}
         {/* Furniture */}

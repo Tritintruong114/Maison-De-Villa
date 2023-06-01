@@ -19,14 +19,24 @@ const CheckOut = () => {
     // console.log(homePageDetail);
   }, [dispatch, slug]);
 
+  //Account sandbox demo :
+
+  //copy here  : sb-a6fog26134195@business.example.com
+  //password: %t6x*5C$
+
   // const handlePaymentClick = () => {
   //   toast.success("Success Payment");
   // };
   return (
     <div className="grid h-full overflow-scroll sm:overflow-hidden  font-poppins gap-6  p-6 w-full sm:grid-cols-6">
-      <div className="sm:col-span-4  bg-fall bg-opacity-30 flex flex-col h-full  justify-center items-center   rounded-3xl">
+      <div className="sm:col-span-4  bg-fall bg-opacity-30 flex flex-col items-center   rounded-3xl">
         <h1 className="text-4xl pt-12 font-bold">Payment details</h1>
-
+        <div className="w-3/4 h-1/4">
+          <img
+            className="rounded-3xl w-full h-full object-cover "
+            src={homePageDetail.mainImageOfProduct}
+          />
+        </div>
         <div className="w-3/4">
           <div className="flex pt-12 justify-between items-center ">
             <h1 className="text-3xl">Name</h1>
