@@ -40,11 +40,6 @@ const Comments = () => {
     }
   };
 
-  // const handleSubmit = () => {
-  //   setReview(false);
-  //   dispatch(addComment(comments));
-  // };
-
   useEffect(() => {
     dispatch(addComment(comments));
   }, []);
