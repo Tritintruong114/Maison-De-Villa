@@ -25,7 +25,7 @@ const Comments = () => {
   const handleSubmit = () => {
     // console.log(comments);
     dispatch(addComment({ comments, name }));
-    localStorage.setItem("comments", [{ ...comments, comments }]);
+    localStorage.setItem("comments", comments);
     setComments("");
   };
 
@@ -54,6 +54,7 @@ const Comments = () => {
       {reivew == true && (
         <div className="w-full gap-3 ">
           <textarea
+            value={comments}
             onChange={(e) => setComments(e?.target?.value)}
             className="w-full mt-3 pl-3 bg-darkBrown bg-opacity-30  rounded-3xl focus:outline py-6"
             placeholder="say something"
