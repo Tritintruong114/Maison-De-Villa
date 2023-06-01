@@ -20,11 +20,8 @@ const HouseDetail = () => {
 
   useEffect(() => {
     dispatch(fetchHomePageDetail(slug));
+    localStorage.setItem("detailHouse", slug);
   }, [dispatch, slug]);
-
-  useEffect(() => {
-    localStorage.getItem("email");
-  }, []);
 
   const caculatePriceTotal = (price) => {
     const totalPrice = days * price;
@@ -170,34 +167,33 @@ const HouseDetail = () => {
           <Comments />
         </div>
         <div className="w-full h-full gap-3 flex-col flex">
-          {comment?.map((comment) => {
-            return (
-              <div
-                key={comment?.name}
-                className="col-span-2 py-6 bg-fall bg-opacity-30 pl-3 rounded-3xl"
-              >
-                <div className="flex items-center gap-3">
-                  <img
-                    className="h-9"
-                    src="https://images.freeimages.com/fic/images/icons/61/dragon_soft/512/user.png"
-                  ></img>
+          {localStorage.getItem("detailHouse") === slug &&
+            comment?.map((comment) => {
+              return (
+                <div
+                  key={comment?.name}
+                  className="col-span-2 py-6 bg-fall bg-opacity-30 pl-3 rounded-3xl"
+                >
+                  <div className="flex items-center gap-3">
+                    <img
+                      className="h-9"
+                      src="https://images.freeimages.com/fic/images/icons/61/dragon_soft/512/user.png"
+                    ></img>
+                    <div>
+                      <h1 className="m-0 font-medium">{comment.name}</h1>
+                      <p className="m-0 font-light opacity-60 italic text-sm">
+                        3 Days ago
+                      </p>
+                    </div>
+                  </div>
                   <div>
-                    <h1 className="m-0 font-medium">
-                      {comment?.map((name) => name.name)}
-                    </h1>
-                    <p className="m-0 font-light opacity-60 italic text-sm">
-                      3 Days ago
+                    <p className="m-0 w-3/4 text-black pt-3">
+                      {comment.comments}
                     </p>
                   </div>
                 </div>
-                <div>
-                  <p className="m-0 w-3/4 text-black pt-3">
-                    {comment?.map((comment) => comment.comment)}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
       {homePageDetail.imageGalleries && (
