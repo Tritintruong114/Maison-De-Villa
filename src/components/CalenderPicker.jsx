@@ -34,7 +34,7 @@ const CalenderPicker = () => {
         className=" w-full text-3xl"
         onChange={(values) => {
           setDates(
-            values.map((item) => {
+            values?.map((item) => {
               return item.format("MM-DD-YYYY");
             })
           );
