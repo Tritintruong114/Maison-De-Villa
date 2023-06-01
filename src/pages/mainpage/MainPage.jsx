@@ -2,12 +2,13 @@ import { Link } from "react-router-dom";
 import { fetchHomePageDatas } from "../../features/fetchData/homePageDatasSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-
+// import headlessService from "../../components/headlessService";
 const MainPage = () => {
   const { homePageDatas } = useSelector((store) => store.homePageDatas);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // headlessService();
     dispatch(fetchHomePageDatas());
   }, [dispatch]);
   // console.log(homePageDatas.slice(0, 3));

@@ -1,5 +1,5 @@
 // import createVnPayOrder from "./connectVnPay";
-
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchHomePageDetail } from "../../features/fetchData/homePageDetailSlice";
@@ -16,44 +16,20 @@ const CheckOut = () => {
   const platformFee = 36;
   useEffect(() => {
     dispatch(fetchHomePageDetail(slug));
-    console.log(homePageDetail);
+    // console.log(homePageDetail);
   }, [dispatch, slug]);
 
-  const handlePaymentClick = () => {
-    toast.success("Success Payment");
-  };
+  // const handlePaymentClick = () => {
+  //   toast.success("Success Payment");
+  // };
   return (
     <div className="grid h-full overflow-scroll sm:overflow-hidden  font-poppins gap-6  p-6 w-full sm:grid-cols-6">
       <div className="sm:col-span-4  bg-fall bg-opacity-30 flex flex-col h-full  justify-center items-center   rounded-3xl">
         <h1 className="text-4xl pt-12 font-bold">Payment details</h1>
-        <div className="flex flex-col w-3/4">
-          <span className="py-1 text-xl opacity-60">Email address</span>
-          <input
-            placeholder="maisondevilla@gmail.com"
-            className="py-3 text-xl rounded pl-3"
-          ></input>
-        </div>
-        <div className="flex flex-col w-3/4">
-          <span className="py-1 text-xl opacity-60">Credit Card Number</span>
-          <input
-            placeholder="xxxx xxxx xxxx xxxx"
-            className="py-3 text-xl rounded pl-3"
-          ></input>
-        </div>
-        <div className="flex w-3/4 justify-between">
-          <div className="flex flex-col w-1/4">
-            <span className="text-xl pt-3 pb-1">Expiry Date</span>
-            <input className="py-3 pl-3 rounded" placeholder="mm/yy"></input>
-          </div>{" "}
-          <div className="flex flex-col w-1/4">
-            <span className="text-xl pt-3 pb-1">CVV</span>
-            <input className="py-3 pl-3 rounded" placeholder="XXX"></input>
-          </div>
-        </div>
 
         <div className="w-3/4">
           <div className="flex pt-12 justify-between items-center ">
-            <h1 className="text-xl">Name</h1>
+            <h1 className="text-3xl">Name</h1>
             <h1 className="sm:text-3xl text-xl font-bold">
               {homePageDetail.nameOfProduct}
             </h1>
@@ -81,12 +57,38 @@ const CheckOut = () => {
           <h1 className="text-3xl font-bold">${total + platformFee}</h1>
         </div>
         <div className="w-3/4 pb-12">
-          <button
+          {/* <button
             onClick={() => handlePaymentClick()}
             className="py-6 w-full text-3xl font-medium bg-fall rounded-3xl"
           >
             Make Payment
-          </button>
+          </button> */}
+          <PayPalScriptProvider
+            options={{
+              "client-id":
+                "Afc348h9v5rBjYyLNV7uNn_pgYxqYY6iBQyJa3maJPQmGYNbOKGZVuWj7mKveyXz1CMEbkyOO5Y6Uyk3",
+            }}
+          >
+            <PayPalButtons
+              createOrder={(data, actions) => {
+                return actions.order.create({
+                  purchase_units: [
+                    {
+                      amount: {
+                        value: total + platformFee,
+                      },
+                    },
+                  ],
+                });
+              }}
+              onApprove={(data, actions) => {
+                return actions.order.capture().then((details) => {
+                  const name = details.payer.name.given_name;
+                  toast.success(`Transaction completed by ${name}`);
+                });
+              }}
+            />
+          </PayPalScriptProvider>
         </div>
       </div>
       <div className="sm:col-span-2 sm:overflow-scroll shadow-2xl no-scrollbar relative flex-col flex h-full rounded-3xl bg-white ">
