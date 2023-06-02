@@ -33,6 +33,8 @@
     "react-router-dom": "^6.11.2",
     "react-simple-star-rating": "^5.1.7",
     "react-toastify": "^9.1.3",
+    "socket.io": "^4.6.2",
+    "socket.io-client": "^4.6.2",
     "sort-by": "^1.2.0"
   },
   "devDependencies": {
