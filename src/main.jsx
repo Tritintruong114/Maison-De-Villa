@@ -12,6 +12,7 @@ import { store } from "./app/store.jsx";
 import { Provider } from "react-redux";
 import MainPage from "./pages/mainpage/MainPage.jsx";
 import CheckOut from "./pages/checkout/CheckOut.jsx";
+import PopUp from "./pages/houseDetail/PopUp.jsx";
 // import {
 //   NovuProvider,
 //   PopoverNotificationCenter,
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
       {
         path: "uniquestays/:slug",
         element: <HouseDetail />,
+        children: [{ path: "popup", element: <PopUp /> }],
       },
       {
         path: "signin",

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { addComment } from "../../features/fetchData/homePageDetailSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-const Comments = () => {
+const Comments = (notLogin) => {
   const [name, setName] = useState("");
   const [comments, setComments] = useState("");
 
@@ -29,11 +29,11 @@ const Comments = () => {
     setComments("");
   };
 
-  const notLogin = () => {
-    if (!localStorage.getItem("email")) {
-      toast.error("Need Login");
-    }
-  };
+  // const notLogin = () => {
+  //   if (!localStorage.getItem("email")) {
+  //     toast.error("Need Login");
+  //   }
+  // };
   return (
     <div className=" py-3 gap-3">
       {!localStorage.getItem("email") ? (

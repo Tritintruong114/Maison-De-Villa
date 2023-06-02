@@ -3,13 +3,17 @@ import { TbBath } from "react-icons/tb";
 import { MdPersonOutline, MdArrowRight } from "react-icons/md";
 import CalenderPicker from "../../components/CalenderPicker";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-
+import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import { fetchHomePageDetail } from "../../features/fetchData/homePageDetailSlice";
 import { checkOut } from "../../features/dayRange/dayRangeSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Comments from "../../components/comment/Comments";
 import { ToastContainer, toast } from "react-toastify";
+// import { useNavigate } from "react-router-dom";
+// import google from "./google.png";
+import { auth, provider } from "../../googleServices/config";
+import { signInWithPopup } from "firebase/auth";
+// import TopNavBar from "../../components/TopNavBar";
 
 const HouseDetail = () => {
   const { slug } = useParams();
@@ -17,30 +21,44 @@ const HouseDetail = () => {
   const { homePageDetail } = useSelector((store) => store.homePageDetail);
   const { days } = useSelector((store) => store.dayRange);
   const { comment } = useSelector((store) => store.homePageDetail);
-
-  useEffect(() => {
-    dispatch(fetchHomePageDetail(slug));
-    localStorage.setItem("detailHouse", slug);
-  }, [dispatch, slug]);
-
+  const [showPopUp, setShowPopUp] = useState(false);
+  const navigate = useNavigate();
   const caculatePriceTotal = (price) => {
     const totalPrice = days * price;
     return totalPrice;
   };
 
   const notLogin = () => {
-    if (!localStorage.getItem("email")) {
-      toast.error("Need Login");
-    }
+    navigate(`popup`);
+    setShowPopUp(true);
   };
+
   const checkOutButton = () => {
     dispatch(checkOut(caculatePriceTotal(homePageDetail.priceOfProduct)));
   };
-  //This page will recive sanity data
-  //And redux data
+
+  // e.stopPropagation();
+  const signInButton = async () => {
+    try {
+      const response = await signInWithPopup(auth, provider);
+      const saveResponse = await response;
+      localStorage.setItem("email", saveResponse.user.email);
+      toast.success("You are log in");
+      setShowPopUp(false);
+      // dispatch(fetchHomePageDetail(slug));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    dispatch(fetchHomePageDetail(slug));
+    localStorage.setItem("detailHouse", slug);
+  }, [dispatch, slug]);
 
   return (
-    <div className="text-black font-poppins gap-5 bg-purple-300 w-full grid sm:grid-cols-5 px-6">
+    <div className="text-black relative font-poppins gap-5 bg-purple-300 w-full grid sm:grid-cols-5 px-6">
+      {showPopUp == true && <Outlet />}
       <div className="sm:col-span-2 col-span-3  p-3 no-scrollbar h-screen overflow-scroll">
         <div className="absolute">
           <ToastContainer />
@@ -164,7 +182,7 @@ const HouseDetail = () => {
         {/* <div className="col-span-2 text-3xl py-6">Reviews</div> */}
         {/* Comment section */}
         <div>
-          <Comments />
+          <Comments notLogin={notLogin} />
         </div>
         <div className="w-full h-full gap-3 flex-col flex">
           {localStorage.getItem("detailHouse") === slug &&
