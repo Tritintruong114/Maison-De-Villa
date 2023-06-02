@@ -52,6 +52,7 @@ const HouseDetail = () => {
   };
 
   useEffect(() => {
+    // fetchCommnet();
     dispatch(fetchHomePageDetail(slug));
     localStorage.setItem("detailHouse", slug);
   }, [dispatch, slug]);

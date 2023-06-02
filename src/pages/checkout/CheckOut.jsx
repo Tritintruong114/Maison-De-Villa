@@ -105,8 +105,8 @@ const CheckOut = () => {
                 }}
                 onApprove={(data, actions) => {
                   return actions.order.capture().then((details) => {
-                    const name = details.payer.name.given_name;
-                    toast.success(`Transaction completed by ${name}`);
+                    // const name = details.payer.name.given_name;
+                    toast.success(`Transaction completed`);
                     setPaymentSuccess(true);
                   });
                 }}

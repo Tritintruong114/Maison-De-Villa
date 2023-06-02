@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { addComment } from "../../features/fetchData/homePageDetailSlice";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 const Comments = (notLogin) => {
   const [name, setName] = useState("");
   const [comments, setComments] = useState("");
@@ -17,23 +17,27 @@ const Comments = (notLogin) => {
   };
 
   useEffect(() => {
-    // dispatch(addComment(comments));
     console.log(localStorage.getItem("email"));
     setName(localStorage.getItem("email"));
   }, []);
 
   const handleSubmit = () => {
-    // console.log(comments);
     dispatch(addComment({ comments, name }));
     localStorage.setItem("comments", comments);
     setComments("");
   };
 
-  // const notLogin = () => {
-  //   if (!localStorage.getItem("email")) {
-  //     toast.error("Need Login");
-  //   }
-  // };
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://maison-be.onrender.com/api/reviews/reza-villa"
+      );
+      const saveData = await response.json();
+      console.log(saveData);
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className=" py-3 gap-3">
       {!localStorage.getItem("email") ? (

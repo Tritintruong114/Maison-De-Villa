@@ -73,7 +73,7 @@ const UniqueStays = () => {
                 ) : (
                   <div
                     className="col-span-1 p-6 rounded-3xl shadow-md flex-shrink-0 h-96 relative"
-                    key={house.id}
+                    key={house.slug.current}
                   >
                     <Link to={`${house.slug?.current}`}>
                       <img
