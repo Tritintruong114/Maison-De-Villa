@@ -1,0 +1,7 @@
+{
+  "rewrites":  [
+    {"source": "/", "destination": "/"},
+    {"source": "/uniquestays", "destination": "/uniquestays"},
+    {"source": "/uniquestays/:slug", "destination": "/uniquestays/:slug"}
+  ]
+}

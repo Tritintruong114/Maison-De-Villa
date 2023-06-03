@@ -1,9 +1,8 @@
-// import { useEffect } from "react";
 import { useEffect, useState } from "react";
 import { addComment } from "../../features/fetchData/homePageDetailSlice";
 import { useDispatch } from "react-redux";
-// import { toast } from "react-toastify";
-const Comments = (notLogin) => {
+
+const Comments = () => {
   const [name, setName] = useState("");
   const [comments, setComments] = useState("");
 
@@ -42,7 +41,7 @@ const Comments = (notLogin) => {
     <div className=" py-3 gap-3">
       {!localStorage.getItem("email") ? (
         <button
-          onClick={() => notLogin()}
+          // onClick={notLogin}
           className="w-full text-3xl font-bold py-3 bg-darkBrown bg-opacity-60 rounded-3xl"
         >
           Reviews
