@@ -76,7 +76,7 @@ const UniqueStays = () => {
                   <CardSkeleton />
                 ) : (
                   <div
-                    className="col-span-1 p-6 rounded-3xl shadow-md flex-shrink-0 h-96 relative"
+                    className="col-span-1 p-6 rounded-3xl hover:scale-105 transition ease-in-out shadow-md flex-shrink-0 h-96 relative"
                     key={house.slug.current}
                   >
                     <Link to={`${house.slug?.current}`}>

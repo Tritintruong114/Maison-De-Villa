@@ -13,7 +13,7 @@ const MainPage = () => {
   }, [dispatch]);
   // console.log(homePageDatas.slice(0, 3));
   return (
-    <div className="font-poppins overflow-scroll no-scrollbar gap-12 flex flex-col p-12 sm:pt-0 sm:pr-24 sm:pl-24 h-full">
+    <div className="font-poppins overflow-scroll no-scrollbar gap-12 flex flex-col p-12  sm:pr-24 sm:pt-12 sm:pl-24 h-full">
       {homePageDatas.map((main) => {
         return (
           <>
