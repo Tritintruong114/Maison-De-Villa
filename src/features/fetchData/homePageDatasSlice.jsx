@@ -58,7 +58,7 @@ fetch(`https://ulqpb6bd.api.sanity.io/v2021-06-07/data/mutate/production`, {
   body: JSON.stringify({ mutations }),
 })
   .then((response) => response.json())
-  .then((result) => console.log(result))
+  // .then((result) => console.log(result))
   .catch((error) => console.error(error));
 
 export const fetchHomePageDatas = createAsyncThunk(

@@ -1,6 +1,7 @@
 import { Midjourney } from "midjourney";
 //npm
-const midJourney = async (promt) => {
+
+const midJourney = async () => {
   const client = new Midjourney({
     ServerId: import.meta.env.VITE_PUBLIC_SERVER_ID,
     ChannelId: import.meta.env.VITE_PUBLIC_CHANNEL_ID,
@@ -13,12 +14,13 @@ const midJourney = async (promt) => {
 
   try {
     await client.init();
-    const msg = await client.Imagine(`${params} ${promt}`, (uri) => {
-      console.log("loading", uri);
+    const msg = await client.Imagine(params, (uri) => {
+      console.log("imagine.loading", uri);
     });
+
     console.log({ msg });
   } catch (error) {
-    console.log(error);
+    console.log(`Midjourney Error`, error);
   }
 };
 
