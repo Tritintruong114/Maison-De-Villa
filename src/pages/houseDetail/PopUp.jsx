@@ -40,13 +40,13 @@ const PopUp = () => {
             <p className="m-0 italic font-bold text-4xl">Maison De Villa</p>
           </h1>
           <div className="shadow-xl active:bg-darkBrown hover:scale-110 transition ease-in-out flex px-6 py-1 gap-3 bg-darkBrown bg-opacity-30 rounded-3xl">
+            <img className="p-0" src={google}></img>
             <button
-              className="text-xl  font-medium"
+              className="text-xl font-bold font-roboto  "
               onClick={() => signInButton()}
             >
-              Sign In with
+              Sign in with Google
             </button>
-            <img src={google}></img>
           </div>
         </div>
       </div>

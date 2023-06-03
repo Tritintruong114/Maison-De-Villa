@@ -30,10 +30,10 @@ const TopNavBar = () => {
         >
           {/* <button className="active:bg-fall h-9 w-full hover:bg-lightBrown">
             <Link to="cabin&cottages">Cabin & cottages</Link>
-          </button>
+      </button>*/}
           <button className="active:bg-fall h-9 w-full hover:bg-lightBrown">
             <Link to="entirehomes">Entire Homes</Link>
-          </button> */}
+          </button>{" "}
           <button className="active:bg-fall h-9 w-full hover:bg-lightBrown">
             <Link to="uniquestays">Unique Stays</Link>
           </button>
@@ -49,11 +49,11 @@ const TopNavBar = () => {
         <div className="grid grid-cols-3 w-1/2   md:visible md:relative invisible absolute">
           {/* <button>
             <Link to="cabin&cottages">Cabin & cottages</Link>
+          </button>*/}
+          <button className="text-xl  hover:scale-110 transition ease-in-out font-medium hover:text-darkBrown">
+            <Link to="entirehomes">Build your🔥</Link>
           </button>
-          <button>
-            <Link to="entirehomes">Entire Homes</Link>
-          </button> */}
-          <button className="text-xl font-medium hover:text-darkBrown">
+          <button className="text-xl  hover:scale-110 transition ease-in-out font-medium hover:text-darkBrown">
             <Link to="uniquestays">Galleries</Link>
           </button>
         </div>
@@ -68,7 +68,7 @@ const TopNavBar = () => {
       </div>
       <div className="w-1/6 flex absolute md:relative md:visible invisible  justify-end">
         {!localStorage.getItem("email") ? (
-          <button className="h-full md:w-3/4 sm:w-full bg-fall text-black mr-9 rounded-3xl">
+          <button className="h-full shadow hover:scale-110 transition ease-in-out md:w-3/4 sm:w-full bg-fall text-black mr-9 rounded-3xl">
             <Link className="h-full md:w-3/4 sm:w-full" to="signin">
               Sign in
             </Link>
@@ -78,10 +78,10 @@ const TopNavBar = () => {
             <img className="h-12" src={user}></img>
             <button
               onClick={() => logOut()}
-              className="h-full active:bg-darkBrown md:w-3/4 sm:w-full bg-fall text-black mr-9 rounded-3xl"
+              className="h-full shadow hover:scale-110 transition ease-in-out active:bg-darkBrown md:w-3/4 sm:w-full bg-fall text-black mr-9 rounded-3xl"
             >
               <Link
-                className="h-full hover:text-darkBrown  md:w-3/4 sm:w-full"
+                className="h-full  hover:text-darkBrown  md:w-3/4 sm:w-full"
                 to="signin"
               >
                 Log out

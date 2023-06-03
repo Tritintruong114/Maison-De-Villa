@@ -3,7 +3,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 const CardSkeleton = () => {
   return (
-    <div className="col-span-1 flex flex-col justify-between flex-shrink-0 h-72 relative">
+    <div className="col-span-1 shadow-md p-6 rounded-3xl flex flex-col justify-between flex-shrink-0 h-72 relative">
       <SkeletonTheme baseColor="#A4907C" highlightColor="#FCDEC0">
         <Skeleton count={1} height={180} />
         <Skeleton count={1} height={21} />

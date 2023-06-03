@@ -17,6 +17,7 @@ const UniqueStays = () => {
 
   //hooks
   const [isFilter, setIsFilter] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
 
   useEffect(() => {
     dispatch(fetchCityCategory());
@@ -28,6 +29,7 @@ const UniqueStays = () => {
 
   //filter function
   const filter = (city) => {
+    setIsClicked(true);
     setIsFilter(true);
     const filtered = homePageDatas.filter((house) => {
       return house.city === city;
@@ -41,12 +43,12 @@ const UniqueStays = () => {
   };
 
   return (
-    <div className="grid font-poppins md:grid-cols-2 no-scrollbar w-full overflow-scroll gap-6 p-6 xl:grid-cols-3">
+    <div className="grid font-poppins md:grid-cols-2 no-scrollbar w-full overflow-scroll pb-12 gap-6 p-6 xl:grid-cols-3">
       <div className="xl:col-span-3 col-span-1 md:col-span-2 w-full flex  justify-center items-center gap-3">
         <div>
           <button
             onClick={() => handleAll()}
-            className="px-3 bg-fall py-1 rounded-xl font-medium"
+            className="px-3 shadow hover:bg-yellow hover:text-black hover:scale-110 transition ease-in-out bg-fall py-1 rounded-xl font-medium"
           >
             All
           </button>
@@ -56,7 +58,9 @@ const UniqueStays = () => {
             <div key={city.slug.current}>
               <button
                 onClick={() => filter(city.title)}
-                className="px-3 bg-fall py-1 rounded-xl font-medium"
+                className={`px-3 ${
+                  isClicked == true
+                } bg-fall shadow hover:bg-yellow hover:z-10 hover:scale-110 transition ease-in-out hover:text-black py-1 rounded-xl font-medium`}
               >
                 {city.title}
               </button>
@@ -125,7 +129,7 @@ const UniqueStays = () => {
                   <CardSkeleton />
                 ) : (
                   <div
-                    className="col-span-1 p-6 rounded-3xl shadow-md flex-shrink-0 h-96 relative"
+                    className="col-span-1  hover:scale-105 transition ease-in-out p-6 rounded-3xl shadow-md flex-shrink-0 h-96 relative"
                     key={house.id}
                   >
                     <Link to={`${house.slug?.current}`}>

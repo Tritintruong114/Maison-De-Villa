@@ -6,6 +6,7 @@ export default {
     fontFamily: {
       poppins: ["Poppins"],
       handWrite: ["Fasthand"],
+      roboto: ["Roboto"],
     },
     colors: {
       white: "#fff",

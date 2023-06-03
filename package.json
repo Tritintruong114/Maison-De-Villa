@@ -24,6 +24,7 @@
     "localforage": "^1.10.0",
     "mailgun-js": "^0.22.0",
     "match-sorter": "^6.3.1",
+    "midjourney": "^2.3.42",
     "moment": "^2.29.4",
     "moment-precise-range-plugin": "^1.3.0",
     "react": "^18.2.0",

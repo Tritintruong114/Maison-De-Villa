@@ -13,8 +13,6 @@ import { checkOut } from "../../features/dayRange/dayRangeSlice";
 import { useEffect, useState } from "react";
 import Comments from "../../components/comment/Comments";
 import { ToastContainer } from "react-toastify";
-import { faker } from "@faker-js/faker";
-
 import axios from "axios";
 
 const HouseDetail = () => {
@@ -25,6 +23,7 @@ const HouseDetail = () => {
     (store) => store.homePageDetail
   );
   const { days } = useSelector((store) => store.dayRange);
+
   // const [showPopUp, setShowPopUp] = useState(false);
 
   const caculatePriceTotal = (price) => {
@@ -181,7 +180,7 @@ const HouseDetail = () => {
         <div>
           <Comments slug={slug} />
         </div>
-        <div className="w-full h-full gap-3 flex-col flex">
+        <div className="w-full h-fit pb-24 gap-3 flex-col flex">
           {localStorage.getItem("detailHouse") === slug &&
             comment?.map((comment) => {
               return (
@@ -212,7 +211,7 @@ const HouseDetail = () => {
         </div>
       </div>
       {homePageDetail.imageGalleries && (
-        <div className="no-scrollbar shadow-xl col-span-3 p-3 overflow-scroll h-screen  gap-3 grid grid-cols-2">
+        <div className="no-scrollbar pb-24 shadow-xl col-span-3 p-3 overflow-scroll h-screen  gap-3 grid grid-cols-2">
           <a
             className="col-span-2"
             href={homePageDetail.imageGalleries[0]?.image?.url}

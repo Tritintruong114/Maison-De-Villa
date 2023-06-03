@@ -7,23 +7,19 @@ import { caculateDays } from "../features/dayRange/dayRangeSlice";
 
 const { RangePicker } = DatePicker;
 const CalenderPicker = () => {
-  // const { days } = useSelector((store) => store.dayRange);
   const dispatch = useDispatch();
 
   const [dates, setDates] = useState([]);
   let startDate = moment(dates[0], "MM-DD-YYYY");
   let endDate = moment(dates[1], "MM-DD-YYYY");
 
-  //Caculate days range
   let noDays = [];
   while (startDate.isSameOrBefore(endDate)) {
     noDays.push(startDate.clone().format("DD/MM/YYYY"));
     startDate.add(1, "days");
   }
   const numberOfDays = noDays.length;
-  // console.log(numberOfDays);//output : days range from Reduxstore
 
-  //useEffect for every change when user pick
   useEffect(() => {
     dispatch(caculateDays(numberOfDays));
   }, [numberOfDays, dispatch]);

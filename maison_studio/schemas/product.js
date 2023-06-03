@@ -18,12 +18,7 @@ export default {
       type: 'string',
       validation: (Rule) => Rule.required().min(10).max(80),
     },
-    {
-      name: 'owner',
-      title: 'Owner',
-      type: 'string',
-      validation: (Rule) => Rule.required().min(10).max(80),
-    },
+
     {
       name: 'slug',
       title: 'Slug',

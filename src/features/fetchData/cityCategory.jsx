@@ -30,7 +30,7 @@ export const cityCategoriesSlice = createSlice({
         return state;
       })
       .addCase(fetchCityCategory.fulfilled, (state, action) => {
-        // console.log(action.payload);
+        console.log(action.payload);
         state.cityCategory = action.payload;
       })
       .addCase(fetchCityCategory.rejected, (state) => {
