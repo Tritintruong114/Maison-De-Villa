@@ -4,25 +4,27 @@ import { MdPersonOutline, MdArrowRight } from "react-icons/md";
 import CalenderPicker from "../../components/CalenderPicker";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
-import { fetchHomePageDetail } from "../../features/fetchData/homePageDetailSlice";
+import {
+  addComment,
+  fetchHomePageDetail,
+} from "../../features/fetchData/homePageDetailSlice";
 import { checkOut } from "../../features/dayRange/dayRangeSlice";
 import { useEffect, useState } from "react";
 import Comments from "../../components/comment/Comments";
-import { ToastContainer, toast } from "react-toastify";
-// import { useNavigate } from "react-router-dom";
-// import google from "./google.png";
-import { auth, provider } from "../../googleServices/config";
-import { signInWithPopup } from "firebase/auth";
-// import TopNavBar from "../../components/TopNavBar";
+import { ToastContainer } from "react-toastify";
+
+import axios from "axios";
 
 const HouseDetail = () => {
   const { slug } = useParams();
   const dispatch = useDispatch();
-  const { homePageDetail } = useSelector((store) => store.homePageDetail);
-  const { days } = useSelector((store) => store.dayRange);
-  const { comment } = useSelector((store) => store.homePageDetail);
-  const [showPopUp, setShowPopUp] = useState(false);
   const navigate = useNavigate();
+  const { homePageDetail, comment } = useSelector(
+    (store) => store.homePageDetail
+  );
+  const { days } = useSelector((store) => store.dayRange);
+  const [showPopUp, setShowPopUp] = useState(false);
+
   const caculatePriceTotal = (price) => {
     const totalPrice = days * price;
     return totalPrice;
@@ -37,25 +39,21 @@ const HouseDetail = () => {
     dispatch(checkOut(caculatePriceTotal(homePageDetail.priceOfProduct)));
   };
 
-  // e.stopPropagation();
-  const signInButton = async () => {
-    try {
-      const response = await signInWithPopup(auth, provider);
-      const saveResponse = await response;
-      localStorage.setItem("email", saveResponse.user.email);
-      toast.success("You are log in");
-      setShowPopUp(false);
-      // dispatch(fetchHomePageDetail(slug));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(
+        `https://maison-be.onrender.com/api/reviews/${slug}`
+      );
+      const saveData = await response.data;
+      dispatch(addComment(saveData.result.review));
+    };
+    fetchData();
+  }, [dispatch, slug]);
 
   useEffect(() => {
-    // fetchCommnet();
     dispatch(fetchHomePageDetail(slug));
     localStorage.setItem("detailHouse", slug);
-  }, [dispatch, slug]);
+  }, [dispatch, comment]);
 
   return (
     <div className="text-black relative font-poppins gap-5 bg-purple-300 w-full grid sm:grid-cols-5 px-6">
@@ -177,13 +175,9 @@ const HouseDetail = () => {
             <p className="m-0">Hair dryer</p>
           </div>
         </div>
-        <div className="col-span-2 grid grid-cols-3">
-          {/* <div className="col-span-1 text-3xl">Star</div> */}
-        </div>
-        {/* <div className="col-span-2 text-3xl py-6">Reviews</div> */}
-        {/* Comment section */}
+
         <div>
-          <Comments notLogin={notLogin} />
+          <Comments slug={slug} />
         </div>
         <div className="w-full h-full gap-3 flex-col flex">
           {localStorage.getItem("detailHouse") === slug &&
@@ -199,16 +193,14 @@ const HouseDetail = () => {
                       src="https://images.freeimages.com/fic/images/icons/61/dragon_soft/512/user.png"
                     ></img>
                     <div>
-                      <h1 className="m-0 font-medium">{comment.name}</h1>
-                      <p className="m-0 font-light opacity-60 italic text-sm">
-                        3 Days ago
-                      </p>
+                      <h1 className="m-0 font-medium">
+                        {localStorage.getItem("email")}
+                      </h1>
+                      {/* <p>{Date}</p> */}
                     </div>
                   </div>
                   <div>
-                    <p className="m-0 w-3/4 text-black pt-3">
-                      {comment.comments}
-                    </p>
+                    <p className="m-0 w-3/4 text-black pt-3">{comment}</p>
                   </div>
                 </div>
               );

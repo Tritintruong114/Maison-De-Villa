@@ -1,41 +1,38 @@
 import { useEffect, useState } from "react";
+
+import axios from "axios";
 import { addComment } from "../../features/fetchData/homePageDetailSlice";
 import { useDispatch } from "react-redux";
 
-const Comments = () => {
-  const [name, setName] = useState("");
+const Comments = (slug) => {
   const [comments, setComments] = useState("");
-
-  const [reivew, setReview] = useState(false);
-
   const dispatch = useDispatch();
+  const [reivew, setReview] = useState(false);
 
   const showReviewPopup = () => {
     setReview(true);
-    setComments();
-  };
-
-  useEffect(() => {
-    console.log(localStorage.getItem("email"));
-    setName(localStorage.getItem("email"));
-  }, []);
-
-  const handleSubmit = () => {
-    dispatch(addComment({ comments, name }));
-    localStorage.setItem("comments", comments);
-    setComments("");
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
-        "https://maison-be.onrender.com/api/reviews/reza-villa"
+      const response = await axios.get(
+        `https://maison-be.onrender.com/api/reviews/${slug.slug}`
       );
-      const saveData = await response.json();
-      console.log(saveData);
+      const saveData = await response.data;
+      dispatch(addComment(saveData.result.review.reverse()));
     };
     fetchData();
-  }, []);
+  }, [comments]);
+
+  const handleSubmit = async () => {
+    const postComment = { review: comments };
+    await axios.post(
+      `https://maison-be.onrender.com/api/reviews/${slug.slug}`,
+      postComment
+    );
+    setComments("");
+    // await fetchData();
+  };
 
   return (
     <div className=" py-3 gap-3">

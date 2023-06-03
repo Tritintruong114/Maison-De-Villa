@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isLoading: false,
   homePageDetail: [],
-  comment: [],
+  comment: null,
 };
 
 export const fetchHomePageDetail = createAsyncThunk(
@@ -43,12 +43,8 @@ export const homePageDetailSlice = createSlice({
   initialState,
   reducers: {
     addComment(state, action) {
-      console.log(action.payload);
-      state.comment.push(action.payload);
+      state.comment = action.payload;
     },
-    // deleteComment(state, action) {
-    //   con
-    // },
   },
   extraReducers: (builder) => {
     builder
