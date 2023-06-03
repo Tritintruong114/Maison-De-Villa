@@ -32,7 +32,7 @@ const TopNavBar = () => {
             <Link to="cabin&cottages">Cabin & cottages</Link>
       </button>*/}
           <button className="active:bg-fall h-9 w-full hover:bg-lightBrown">
-            <Link to="entirehomes">Entire Homes</Link>
+            <Link to="ai">Build your🔥</Link>
           </button>{" "}
           <button className="active:bg-fall h-9 w-full hover:bg-lightBrown">
             <Link to="uniquestays">Unique Stays</Link>
