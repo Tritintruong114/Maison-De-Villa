@@ -1,9 +1,9 @@
-{
-  "redirects": [
-    { 
-      "source": "/",
-      "destination": "https://maison-de-villa.vercel.app/", 
-      "permanent": true
-    }
-  ]
-}
+// {
+//   "redirects": [
+//     { 
+//       "source": "/",
+//       "destination": "https://maison-de-villa.vercel.app/", 
+//       "permanent": true
+//     }
+//   ]
+// }
