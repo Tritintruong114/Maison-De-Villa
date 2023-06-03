@@ -56,7 +56,7 @@ const router = createBrowserRouter([
         // children: {},
       },
       {
-        path: "AI",
+        path: "ai",
         element: <ImageGenerate />,
       },
     ],

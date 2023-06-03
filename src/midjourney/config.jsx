@@ -1,5 +1,5 @@
 import { Midjourney } from "midjourney";
-
+//npm
 const midJourney = async (promt) => {
   const client = new Midjourney({
     ServerId: import.meta.env.SERVER_ID,
