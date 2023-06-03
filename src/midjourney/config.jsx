@@ -2,9 +2,9 @@ import { Midjourney } from "midjourney";
 //npm
 const midJourney = async (promt) => {
   const client = new Midjourney({
-    ServerId: import.meta.env.SERVER_ID,
-    ChannelId: import.meta.env.CHANNEL_ID,
-    SalaiToken: import.meta.env.SALAI_TOKEN,
+    ServerId: import.meta.env.VITE_PUBLIC_SERVER_ID,
+    ChannelId: import.meta.env.VITE_PUBLIC_CHANNEL_ID,
+    SalaiToken: import.meta.env.VITE_PUBLIC_SALAI_TOKEN,
     Debug: true,
     Ws: true,
   });
