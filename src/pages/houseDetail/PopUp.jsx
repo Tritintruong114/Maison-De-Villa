@@ -5,9 +5,10 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { showPopupLogin } from "../../features/fetchData/homePageDetailSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 const PopUp = () => {
-  const [showPopUp, setShowPopUp] = useState(false);
+  const { showPopup } = useSelector((store) => store.homePageDetail);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -17,15 +18,13 @@ const PopUp = () => {
       const saveResponse = await response;
       localStorage.setItem("email", saveResponse.user.email);
       toast.success("You are log in");
-      setShowPopUp(false);
-      // navigate(-1);
+      navigate(0);
     } catch (error) {
       console.log(error);
     }
   };
 
   const notLogin = () => {
-    // setShowPopUp(true);
     dispatch(showPopupLogin(false));
     navigate(-1);
   };

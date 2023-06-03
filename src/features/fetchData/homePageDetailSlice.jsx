@@ -47,7 +47,6 @@ export const homePageDetailSlice = createSlice({
       state.comment = action.payload;
     },
     showPopupLogin(state, action) {
-      console.log(action.payload);
       state.showPopup = action.payload;
     },
   },

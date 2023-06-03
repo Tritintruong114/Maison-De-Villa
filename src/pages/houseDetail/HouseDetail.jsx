@@ -35,7 +35,6 @@ const HouseDetail = () => {
   const notLogin = () => {
     navigate(`popup`);
     dispatch(showPopupLogin(true));
-    console.log(showPopup);
   };
 
   const checkOutButton = () => {
