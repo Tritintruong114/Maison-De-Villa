@@ -51,7 +51,7 @@ const TopNavBar = () => {
             <Link to="cabin&cottages">Cabin & cottages</Link>
           </button>*/}
           <button className="text-xl  hover:scale-110 transition ease-in-out font-medium hover:text-darkBrown">
-            <Link to="entirehomes">Build your🔥</Link>
+            <Link to="ai">Build your🔥</Link>
           </button>
           <button className="text-xl  hover:scale-110 transition ease-in-out font-medium hover:text-darkBrown">
             <Link to="uniquestays">Galleries</Link>
