@@ -5,6 +5,7 @@ const initialState = {
   isLoading: false,
   homePageDetail: [],
   comment: null,
+  showPopup: false,
 };
 
 export const fetchHomePageDetail = createAsyncThunk(
@@ -45,6 +46,10 @@ export const homePageDetailSlice = createSlice({
     addComment(state, action) {
       state.comment = action.payload;
     },
+    showPopupLogin(state, action) {
+      console.log(action.payload);
+      state.showPopup = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -63,5 +68,5 @@ export const homePageDetailSlice = createSlice({
   },
 });
 
-export const { addComment } = homePageDetailSlice.actions;
+export const { addComment, showPopupLogin } = homePageDetailSlice.actions;
 export default homePageDetailSlice.reducer;

@@ -4,9 +4,11 @@ import { signInWithPopup } from "firebase/auth";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
+import { showPopupLogin } from "../../features/fetchData/homePageDetailSlice";
+import { useDispatch } from "react-redux";
 const PopUp = () => {
   const [showPopUp, setShowPopUp] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const signInButton = async () => {
@@ -23,7 +25,9 @@ const PopUp = () => {
   };
 
   const notLogin = () => {
-    setShowPopUp(true);
+    // setShowPopUp(true);
+    dispatch(showPopupLogin(false));
+    navigate(-1);
   };
   return (
     <div

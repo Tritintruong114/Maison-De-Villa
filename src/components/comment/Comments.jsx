@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 
 import axios from "axios";
 import { addComment } from "../../features/fetchData/homePageDetailSlice";
-import { useDispatch } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { showPopupLogin } from "../../features/fetchData/homePageDetailSlice";
 const Comments = (slug) => {
   const [comments, setComments] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { showPopup } = useSelector((store) => store.homePageDetail);
   const [reivew, setReview] = useState(false);
 
   const showReviewPopup = () => {
@@ -34,11 +37,16 @@ const Comments = (slug) => {
     // await fetchData();
   };
 
+  const notLogin = () => {
+    navigate(`popup`);
+    dispatch(showPopupLogin(true));
+  };
+
   return (
     <div className=" py-3 gap-3">
       {!localStorage.getItem("email") ? (
         <button
-          // onClick={notLogin}
+          onClick={() => notLogin()}
           className="w-full text-3xl font-bold py-3 bg-darkBrown bg-opacity-60 rounded-3xl"
         >
           Reviews

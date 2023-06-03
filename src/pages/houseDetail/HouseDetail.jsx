@@ -7,11 +7,13 @@ import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import {
   addComment,
   fetchHomePageDetail,
+  showPopupLogin,
 } from "../../features/fetchData/homePageDetailSlice";
 import { checkOut } from "../../features/dayRange/dayRangeSlice";
 import { useEffect, useState } from "react";
 import Comments from "../../components/comment/Comments";
 import { ToastContainer } from "react-toastify";
+import { faker } from "@faker-js/faker";
 
 import axios from "axios";
 
@@ -19,11 +21,11 @@ const HouseDetail = () => {
   const { slug } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { homePageDetail, comment } = useSelector(
+  const { homePageDetail, comment, showPopup } = useSelector(
     (store) => store.homePageDetail
   );
   const { days } = useSelector((store) => store.dayRange);
-  const [showPopUp, setShowPopUp] = useState(false);
+  // const [showPopUp, setShowPopUp] = useState(false);
 
   const caculatePriceTotal = (price) => {
     const totalPrice = days * price;
@@ -32,7 +34,8 @@ const HouseDetail = () => {
 
   const notLogin = () => {
     navigate(`popup`);
-    setShowPopUp(true);
+    dispatch(showPopupLogin(true));
+    console.log(showPopup);
   };
 
   const checkOutButton = () => {
@@ -45,7 +48,7 @@ const HouseDetail = () => {
         `https://maison-be.onrender.com/api/reviews/${slug}`
       );
       const saveData = await response.data;
-      dispatch(addComment(saveData.result.review));
+      dispatch(addComment(saveData.result.review.reverse()));
     };
     fetchData();
   }, [dispatch, slug]);
@@ -57,7 +60,7 @@ const HouseDetail = () => {
 
   return (
     <div className="text-black relative font-poppins gap-5 bg-purple-300 w-full grid sm:grid-cols-5 px-6">
-      {showPopUp == true && <Outlet />}
+      {showPopup == true && <Outlet />}
       <div className="sm:col-span-2 col-span-3  p-3 no-scrollbar h-screen overflow-scroll">
         <div className="absolute">
           <ToastContainer />
@@ -194,9 +197,11 @@ const HouseDetail = () => {
                     ></img>
                     <div>
                       <h1 className="m-0 font-medium">
-                        {localStorage.getItem("email")}
+                        {localStorage.getItem("email")
+                          ? localStorage.getItem("email")
+                          : "truongtritin.bee@gmail.com"}
                       </h1>
-                      {/* <p>{Date}</p> */}
+                      {/* <p>{faker.date.recent({ days: 10 })}</p> */}
                     </div>
                   </div>
                   <div>
