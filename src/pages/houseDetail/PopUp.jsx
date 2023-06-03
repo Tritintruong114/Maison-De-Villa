@@ -18,7 +18,7 @@ const PopUp = () => {
       localStorage.setItem("email", saveResponse.user.email);
       toast.success("You are log in");
       setShowPopUp(false);
-      navigate(-1);
+      // navigate(-1);
     } catch (error) {
       console.log(error);
     }
