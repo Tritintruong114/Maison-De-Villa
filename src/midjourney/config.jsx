@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Midjourney } from "midjourney";
 //npm
 
@@ -10,18 +11,26 @@ const midJourney = async () => {
     Ws: true,
   });
 
-  const params = `house residence attractive interior designs --chaos 0 --quality 0.5 --ar 16:9`;
+  const prompt = `house residence attractive interior designs --chaos 0 --quality 0.5 --ar 16:9`;
 
-  try {
-    await client.init();
-    const msg = await client.Imagine(params, (uri) => {
-      console.log("imagine.loading", uri);
+  fetch(
+    "https://ai-custom-curriculum-production-cbad.up.railway.app/api/midjourneyAPI",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain",
+      },
+      body: prompt,
+    }
+  )
+    .then((response) => {
+      // Handle the response
+      console.log("Response:", response);
+    })
+    .catch((error) => {
+      // Handle any errors
+      console.error("Error:", error);
     });
-
-    console.log({ msg });
-  } catch (error) {
-    console.log(`Midjourney Error`, error);
-  }
 };
 
 export default midJourney;
