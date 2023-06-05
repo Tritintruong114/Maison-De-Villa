@@ -7,7 +7,7 @@ const ImageGenerate = () => {
 
   useEffect(() => {
     console.log("Page Load start ");
-    // midJourney();
+    midJourney();
     console.log("Page Load end");
   }, []);
 
