@@ -1,6 +1,8 @@
 // import midJourney from "../../midjourney/config";
 
+import axios from "axios";
 import { useState } from "react";
+import AimageSkeleton from "../../components/AimageSkeleton";
 
 const ImageGenerate = () => {
   const [imgUri, setImgUri] = useState("");
@@ -8,34 +10,37 @@ const ImageGenerate = () => {
   const [inputPromt, setInpurPromt] = useState("");
   const [showPromt, setShowPromt] = useState("");
 
-  const midJourney = async () => {
-    const prompt = `residence attractive interior designs glass sunset full view luxury and have some people , with pool view, sky , cloud --chaos 0 --quality 0.5 --ar 16:9`;
-    fetch("https://toanjs.free.beeceptor.com/api/midjourneyAPI", {
-      method: "POST",
-      headers: {
-        "Content-Type": "text/plain",
-        tempoPassword: "truongtritin",
-      },
-      body: prompt,
-    })
-      .then((response) => {
-        setIsGenerating(true);
-        return response.json();
-      })
-      .then((data) => {
-        setIsGenerating(false);
-        console.log(data.uri);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+  const data = {
+    prompt: `${showPromt}  interior  Contemporary Architecture, White Houses, Modern, Futuristic, Trees, Photorealistic, V-Ray Tracing, Ultra Detailed, Octane Render modern house in the woods creative commons attribution  a digital rendering by Maginel Wright Enright Barney modernism realistic architecture house modern --ar 16:9 --c 50 --quality 0.5`,
+  };
+
+  const fetchMidJourney = async () => {
+    setIsGenerating(true);
+    try {
+      // Text data to be sent
+      const result = await axios.post(
+        "https://maison-be.onrender.com/api/midjourneyAPI",
+        data,
+        {
+          headers: {
+            tempopassword: "truongtritin",
+          },
+        }
+      );
+      console.log(result.data, "This is MidJourney AI");
+      setImgUri(result.data.uri);
+      setIsGenerating(false);
+    } catch (error) {
+      console.log("POST DATA ERROR", error);
+    }
   };
 
   const handleGenerate = () => {
-    setShowPromt(inputPromt);
+    console.log(inputPromt, "This is promt");
+    setImgUri("");
     setInpurPromt("");
-    setIsGenerating(true);
-    // midJourney();
+    setShowPromt(inputPromt);
+    fetchMidJourney();
   };
 
   return (
@@ -46,7 +51,7 @@ const ImageGenerate = () => {
           <input
             value={inputPromt}
             onChange={(e) => setInpurPromt(e.target.value)}
-            className="w-full font-medium bg-fall bg-opacity-20 focus:outline-none px-6 py-3 rounded-3xl"
+            className="w-full capitalize font-medium bg-fall bg-opacity-20 focus:outline-none px-6 py-3 rounded-3xl"
           ></input>
           <button
             onClick={() => handleGenerate()}
@@ -55,15 +60,16 @@ const ImageGenerate = () => {
             Generate
           </button>
         </div>
-        {isGenerating == true && (
-          <div className="w-full flex flex-col h-full pb-24">
-            <p className="w-full">{showPromt}</p>
+        <div className="w-full flex flex-col h-full pb-24">
+          <p className="w-full capitalize px-6">{showPromt}</p>
+          {imgUri && (
             <img
-              className="h-full w-full object-cover"
-              src="https://cdn.discordapp.com/attachments/1110473578283016223/1115642690701369424/rimn_house_residence_attractive_interior_designs_b13bbd38-1ebb-4171-bded-24d29705e331.png"
+              className="h-full rounded-3xl w-full object-cover"
+              src={imgUri}
             ></img>
-          </div>
-        )}
+          )}
+          {isGenerating == true && <AimageSkeleton />}
+        </div>
       </div>
     </div>
   );
