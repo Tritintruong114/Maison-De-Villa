@@ -3,6 +3,8 @@
 import axios from "axios";
 import { useState } from "react";
 import AimageSkeleton from "../../components/AimageSkeleton";
+import ReactConfetti from "react-confetti";
+
 import {
   FacebookMessengerIcon,
   FacebookMessengerShareButton,
@@ -48,10 +50,12 @@ const ImageGenerate = () => {
   };
 
   const handleGenerate = () => {
+    console.log("Button click");
+    // setIsGenerating(true);
     setImgUri("");
     console.log(`${architecture} ${view} ${weather}`);
     setShowPromt(`${architecture} ${view} ${weather}`);
-    // fetchMidJourney();
+    fetchMidJourney();
   };
 
   return (
@@ -129,8 +133,11 @@ const ImageGenerate = () => {
           </div>
           <div className="place-self-stretch relative w-full col-span-1 col-start-2	 flex items-center justify-center">
             <button
+              disabled={isGenerating == true ? true : false}
               onClick={() => handleGenerate()}
-              className=" glow-on-hover font-poppins w-full py-3 rounded-3xl text-3xl relative"
+              className={`glow-on-hover ${
+                isGenerating == true ? "cursor-not-allowed" : "cursor-pointer"
+              } font-poppins w-full hover:scale-105 transition  ease-in-out  py-3 rounded-3xl text-3xl relative`}
             >
               Generate
             </button>
@@ -139,11 +146,12 @@ const ImageGenerate = () => {
         <div className="w-full flex flex-col h-full pb-24">
           {imgUri && (
             <>
+              {/* <ReactConfetti run numberOfPieces={150} /> */}
               <p className="w-full py-3 m-0 text-3xl  flex capitalize px-6 items-center justify-center">
                 {showPromt}
               </p>
               <a
-                className="shadow-2xl rounded-3xl hover:scale-105 transition ease-in-out"
+                className="shadow-2xl cursor-zoom-in rounded-3xl hover:scale-105 transition ease-in-out"
                 target="_blank"
                 rel="noreferrer"
                 href={imgUri}
