@@ -32,7 +32,7 @@ const TopNavBar = () => {
             <Link to="cabin&cottages">Cabin & cottages</Link>
       </button>*/}
           <button className="active:bg-fall h-9 w-full hover:bg-lightBrown">
-            <Link to="ai">Build your🔥</Link>
+            <Link to="ai">Design your🔥</Link>
           </button>{" "}
           <button className="active:bg-fall h-9 w-full hover:bg-lightBrown">
             <Link to="uniquestays">Unique Stays</Link>
@@ -51,7 +51,7 @@ const TopNavBar = () => {
             <Link to="cabin&cottages">Cabin & cottages</Link>
           </button>*/}
           <button className="text-xl  hover:scale-110 transition ease-in-out font-medium hover:text-darkBrown">
-            <Link to="ai">Build your🔥</Link>
+            <Link to="ai">Design your🔥</Link>
           </button>
           <button className="text-xl  hover:scale-110 transition ease-in-out font-medium hover:text-darkBrown">
             <Link to="uniquestays">Galleries</Link>
