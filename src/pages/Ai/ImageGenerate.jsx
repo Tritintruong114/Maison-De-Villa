@@ -51,7 +51,7 @@ const ImageGenerate = () => {
     setImgUri("");
     console.log(`${architecture} ${view} ${weather}`);
     setShowPromt(`${architecture} ${view} ${weather}`);
-    fetchMidJourney();
+    // fetchMidJourney();
   };
 
   return (
@@ -127,10 +127,10 @@ const ImageGenerate = () => {
               <option value="rain">Rain</option>
             </select>
           </div>
-          <div className="place-self-stretch w-full col-span-1 col-start-2	 flex items-center justify-center">
+          <div className="place-self-stretch relative w-full col-span-1 col-start-2	 flex items-center justify-center">
             <button
               onClick={() => handleGenerate()}
-              className="font-bold hover:scale-105  bg-opacity-60 py-3 items-center justify-center text-3xl hover:bg-fall active:bg-lightBrown transition ease-in-out bg-darkBrown w-full h-full rounded-full"
+              className=" glow-on-hover font-poppins w-full py-3 rounded-3xl text-3xl relative"
             >
               Generate
             </button>

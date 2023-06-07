@@ -9,6 +9,7 @@ export default {
       roboto: ["Roboto"],
     },
     colors: {
+      neon: "#B70404",
       white: "#fff",
       black: "#0a0a0a",
       darkBrown: "#A4907C",
