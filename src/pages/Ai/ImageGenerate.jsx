@@ -3,7 +3,17 @@
 import axios from "axios";
 import { useState } from "react";
 import AimageSkeleton from "../../components/AimageSkeleton";
-
+import {
+  FacebookMessengerIcon,
+  FacebookMessengerShareButton,
+  FacebookShareButton,
+  LinkedinIcon,
+  LinkedinShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+} from "react-share";
+import { FacebookIcon } from "react-share";
+import messenger from "./messenger.png";
 const ImageGenerate = () => {
   const [imgUri, setImgUri] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
@@ -45,9 +55,9 @@ const ImageGenerate = () => {
   };
 
   return (
-    <div className="  w-full  flex justify-center items-center  font-bold font-poppins ">
+    <div className=" w-full  flex justify-center items-center  font-bold font-poppins ">
       <div className="  gap-3 w-full flex-col flex items-center justify-center px-9">
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex pb-6 flex-col justify-center items-center">
           <h1 className="text-3xl m-0 font-bold">
             Design Your Dream Home: Share Your Vision
           </h1>
@@ -55,12 +65,14 @@ const ImageGenerate = () => {
             Select Your Options and Let AI Do the Rest!
           </p>
         </div>
-        <div className="grid place-items-center grid-cols-3 w-full gap-9  items-center justify-center">
-          <div className="col-span-1 border-2 rounded-3xl p-3 bg-darkBrown bg-opacity-60 items-center justify-center w-full flex flex-col">
-            <label htmlFor="architecture">Modern Architecture</label>
+        <div className="grid place-items-center pb-6 grid-cols-3 w-full gap-9  items-center justify-center">
+          <div className="col-span-1  rounded-3xl p-3 bg-darkBrown bg-opacity-30 shadow-xl items-center justify-center w-full flex flex-col">
+            <label className="py-1 text-xl" htmlFor="architecture">
+              Architecture
+            </label>
 
             <select
-              className="w-full rounded focus:outline-none"
+              className="w-full rounded-3xl py-1 px-3 focus:outline-none"
               onChange={(e) => setArchitecture(e.target.value)}
               id="architecture"
             >
@@ -80,10 +92,12 @@ const ImageGenerate = () => {
               <option value="Gothic Architecture">Gothic Architecture</option>
             </select>
           </div>
-          <div className="col-span-1 border-2 rounded-3xl p-3 bg-darkBrown bg-opacity-60  justify-center items-center w-full flex flex-col">
-            <label htmlFor="panoramic">Panoramic Views</label>
+          <div className="col-span-1   rounded-3xl p-3 bg-darkBrown bg-opacity-30 shadow-xl  justify-center items-center w-full flex flex-col">
+            <label className="py-1 text-xl" htmlFor="panoramic">
+              Panoramic Views
+            </label>
             <select
-              className="w-full rounded focus:outline-none"
+              className="w-full py-1 px-3 rounded-3xl focus:outline-none"
               onChange={(e) => setView(e.target.value)}
               id="panoramic"
             >
@@ -95,10 +109,13 @@ const ImageGenerate = () => {
               <option value="rainbow">Rainbow</option>
             </select>
           </div>
-          <div className="col-span-1 border-2 rounded-3xl p-3 bg-darkBrown bg-opacity-60 items-center justify-center    w-full flex flex-col">
-            <label htmlFor="weather"> Weather Conditions</label>
+          <div className="col-span-1  rounded-3xl p-3 bg-darkBrown bg-opacity-30 shadow-xl items-center justify-center    w-full flex flex-col">
+            <label className="py-1 text-xl" htmlFor="weather">
+              {" "}
+              Weather Conditions
+            </label>
             <select
-              className="w-full rounded focus:outline-none"
+              className="w-full py-1  px-3 rounded-3xl focus:outline-none"
               onChange={(e) => setWeather(e.target.value)}
               id="weather"
             >
@@ -110,26 +127,58 @@ const ImageGenerate = () => {
               <option value="rain">Rain</option>
             </select>
           </div>
-        <div className="place-self-stretch w-full col-span-1 col-start-2	 flex items-center justify-center">
-          <button
-            onClick={() => handleGenerate()}
-            className="font-bold hover:scale-105  bg-opacity-60 py-3 items-center justify-center text-3xl hover:bg-fall active:bg-lightBrown transition ease-in-out bg-darkBrown w-full h-full rounded-full"
-          >
-            Generate
-          </button>
-        </div>
+          <div className="place-self-stretch w-full col-span-1 col-start-2	 flex items-center justify-center">
+            <button
+              onClick={() => handleGenerate()}
+              className="font-bold hover:scale-105  bg-opacity-60 py-3 items-center justify-center text-3xl hover:bg-fall active:bg-lightBrown transition ease-in-out bg-darkBrown w-full h-full rounded-full"
+            >
+              Generate
+            </button>
+          </div>
         </div>
         <div className="w-full flex flex-col h-full pb-24">
-          <p className="w-full text-3xl m-0 flex capitalize px-6 items-center justify-center">
-            {showPromt}
-          </p>
           {imgUri && (
-            <a target="_blank" rel="noreferrer" href={imgUri}>
-              <img
-                className="h-full rounded-3xl w-full object-cover"
-                src={imgUri}
-              ></img>
-            </a>
+            <>
+              <p className="w-full py-3 m-0 text-3xl  flex capitalize px-6 items-center justify-center">
+                {showPromt}
+              </p>
+              <a
+                className="shadow-2xl rounded-3xl hover:scale-105 transition ease-in-out"
+                target="_blank"
+                rel="noreferrer"
+                href={imgUri}
+              >
+                <img
+                  className="h-full  rounded-3xl w-full object-cover"
+                  src={imgUri}
+                ></img>
+              </a>
+              <div className="w-full pt-6 flex-col flex justify-center items-center">
+                <h1 className="m-0 py-1 font-bold text-xl">Design with AI</h1>
+                <div className="flex gap-6">
+                  <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
+                    <FacebookShareButton url={imgUri} hashtag="#AIImage">
+                      <FacebookIcon round={true} />
+                    </FacebookShareButton>
+                  </div>
+                  <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
+                    <FacebookMessengerShareButton url={imgUri}>
+                      <FacebookMessengerIcon round={true} />
+                    </FacebookMessengerShareButton>
+                  </div>
+                  <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
+                    <LinkedinShareButton url={imgUri} hashtag="#TechTankDay">
+                      <LinkedinIcon round={true} />
+                    </LinkedinShareButton>
+                  </div>
+                  <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
+                    <TwitterShareButton url={imgUri} hashtag="#AIImage">
+                      <TwitterIcon round={true} />
+                    </TwitterShareButton>
+                  </div>
+                </div>
+              </div>
+            </>
           )}
           {isGenerating == true && <AimageSkeleton />}
         </div>
