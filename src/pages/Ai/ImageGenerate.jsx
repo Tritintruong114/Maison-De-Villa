@@ -15,7 +15,7 @@ import {
   TwitterShareButton,
 } from "react-share";
 import { FacebookIcon } from "react-share";
-import messenger from "./messenger.png";
+// import messenger from "./messenger.png";
 const ImageGenerate = () => {
   const [imgUri, setImgUri] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
@@ -72,7 +72,6 @@ const ImageGenerate = () => {
 
   const handleGenerate = () => {
     console.log("Button click");
-    // setIsGenerating(true);
     setImgUri("");
     console.log(`${architecture} ${view} ${weather}`);
     setShowPromt(`${architecture} ${view} ${weather}`);
@@ -195,11 +194,6 @@ const ImageGenerate = () => {
                     <FacebookMessengerShareButton url={imgUri}>
                       <FacebookMessengerIcon round={true} />
                     </FacebookMessengerShareButton>
-                  </div>
-                  <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
-                    <LinkedinShareButton url={imgUri} hashtag="#TechTankDay">
-                      <LinkedinIcon round={true} />
-                    </LinkedinShareButton>
                   </div>
                   <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
                     <TwitterShareButton url={imgUri} hashtag="#AIImage">
