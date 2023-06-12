@@ -24,59 +24,76 @@ const ImageGenerate = () => {
   const [weather, setWeather] = useState("");
   const [showPromt, setShowPromt] = useState("");
 
-  const [imageUrl, setImageUrl] = useState("");
-
+  // const [imageUrl, setImageUrl] = useState("");
+  const options = {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "content-type": "application/json",
+      authorization: "Bearer 3e1edc25-c3db-4b97-bafb-f2a1b07d027a",
+    },
+    body: JSON.stringify({
+      prompt:
+        "editorial photo from Dwell, Midcentury modern house, on a cliff overlooking Los Angeles, morning sun, brilliant architecture, beautiful, exclusive, expensive, minimal lines, breathtaking, 8K, architecture photography",
+      negative_prompt: "string",
+      modelId: "6bef9f1b-29cb-40c7-b9df-32b51c1f67d3",
+      sd_version: "v1_5",
+      num_images: 4,
+      width: 512,
+      height: 512,
+      num_inference_steps: 30,
+      guidance_scale: 9,
+      init_generation_image_id: "string",
+      init_image_id: "string",
+      response_format: "url",
+      init_strength: 0.6,
+      scheduler: "KLMS",
+      presetStyle: "LEONARDO",
+      tiling: true,
+      public: true,
+      promptMagic: true,
+      // controlNet: true,
+      controlNetType: "POSE",
+    }),
+  };
   const handleClick = async () => {
-    const prompt = "Generate an image of a cat playing the piano";
-    const response = await fetch("https://api.leonardo.ai/v1/image/generate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer 3e1edc25-c3db-4b97-bafb-f2a1b07d027a",
-      },
-      body: JSON.stringify({
-        model: "image-generator",
-        prompt: prompt,
-        response_format: "url",
-      }),
-    });
+    fetch("https://cloud.leonardo.ai/api/rest/v1/generations", options)
+      .then((response) => response.json())
+      .then((response) => console.log(response))
+      .catch((err) => console.error(err));
+  };
+  // const data = {
+  //   prompt: `${architecture} ${view} ${weather} black Houses, Modern, Futuristic, Trees, Photorealistic, V-Ray Tracing, Ultra Detailed, Octane Render modern house in the woods creative commons attribution  a digital rendering by Maginel Wright Enright Barney modernism realistic architecture house modern --ar 16:9 --c 50 --quality 0.5`,
+  // };
 
-    const data = await response.json();
-    setImageUrl(data.url);
-    console.log(imageUrl);
-  };
-  const data = {
-    prompt: `${architecture} ${view} ${weather} black Houses, Modern, Futuristic, Trees, Photorealistic, V-Ray Tracing, Ultra Detailed, Octane Render modern house in the woods creative commons attribution  a digital rendering by Maginel Wright Enright Barney modernism realistic architecture house modern --ar 16:9 --c 50 --quality 0.5`,
-  };
+  // const fetchMidJourney = async () => {
+  //   setIsGenerating(true);
+  //   try {
+  //     // Text data to be sent
+  //     const result = await axios.post(
+  //       "https://maison-be.onrender.com/api/midjourneyAPI",
+  //       data,
+  //       {
+  //         headers: {
+  //           tempopassword: "truongtritin",
+  //         },
+  //       }
+  //     );
+  //     console.log(result.data, "This is MidJourney AI");
+  //     setImgUri(result.data.uri);
+  //     setIsGenerating(false);
+  //   } catch (error) {
+  //     console.log("POST DATA ERROR", error);
+  //   }
+  // };
 
-  const fetchMidJourney = async () => {
-    setIsGenerating(true);
-    try {
-      // Text data to be sent
-      const result = await axios.post(
-        "https://maison-be.onrender.com/api/midjourneyAPI",
-        data,
-        {
-          headers: {
-            tempopassword: "truongtritin",
-          },
-        }
-      );
-      console.log(result.data, "This is MidJourney AI");
-      setImgUri(result.data.uri);
-      setIsGenerating(false);
-    } catch (error) {
-      console.log("POST DATA ERROR", error);
-    }
-  };
-
-  const handleGenerate = () => {
-    console.log("Button click");
-    setImgUri("");
-    console.log(`${architecture} ${view} ${weather}`);
-    setShowPromt(`${architecture} ${view} ${weather}`);
-    fetchMidJourney();
-  };
+  // const handleGenerate = () => {
+  //   console.log("Button click");
+  //   setImgUri("");
+  //   console.log(`${architecture} ${view} ${weather}`);
+  //   setShowPromt(`${architecture} ${view} ${weather}`);
+  //   // fetchMidJourney();
+  // };
 
   return (
     <div className=" w-full  flex justify-center items-center  font-bold font-poppins ">
@@ -205,7 +222,7 @@ const ImageGenerate = () => {
             </>
           )}
           {isGenerating == true && <AimageSkeleton />}
-          <img src={imageUrl}></img>
+          {/* <img src={imageUrl}></img> */}
         </div>
       </div>
     </div>
