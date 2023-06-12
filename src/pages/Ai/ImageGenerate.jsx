@@ -1,100 +1,44 @@
-// import midJourney from "../../midjourney/config";
-
-import axios from "axios";
 import { useState } from "react";
 import AimageSkeleton from "../../components/AimageSkeleton";
-import ReactConfetti from "react-confetti";
-
 import {
   FacebookMessengerIcon,
   FacebookMessengerShareButton,
   FacebookShareButton,
-  LinkedinIcon,
-  LinkedinShareButton,
   TwitterIcon,
   TwitterShareButton,
 } from "react-share";
 import { FacebookIcon } from "react-share";
-// import messenger from "./messenger.png";
+import { useSelector, useDispatch } from "react-redux";
+import { getImageGenerationID } from "../../features/fetchData/imageSlice";
+import { imagesDetail } from "../../features/fetchData/imageSlice";
+
 const ImageGenerate = () => {
-  const [imgUri, setImgUri] = useState("");
+  const { imageUrl, generationID, isFetching } = useSelector(
+    (store) => store.imageDetail
+  );
+  const dispatch = useDispatch();
+
   const [isGenerating, setIsGenerating] = useState(false);
   const [architecture, setArchitecture] = useState("");
   const [view, setView] = useState("");
   const [weather, setWeather] = useState("");
-  const [showPromt, setShowPromt] = useState("");
+  const [promt, setPromt] = useState("");
+  const [canGetImage, setCanGetImage] = useState(null);
 
-  // const [imageUrl, setImageUrl] = useState("");
-  const options = {
-    method: "POST",
-    headers: {
-      accept: "application/json",
-      "content-type": "application/json",
-      authorization: "Bearer 3e1edc25-c3db-4b97-bafb-f2a1b07d027a",
-    },
-    body: JSON.stringify({
-      prompt:
-        "editorial photo from Dwell, Midcentury modern house, on a cliff overlooking Los Angeles, morning sun, brilliant architecture, beautiful, exclusive, expensive, minimal lines, breathtaking, 8K, architecture photography",
-      negative_prompt: "string",
-      modelId: "6bef9f1b-29cb-40c7-b9df-32b51c1f67d3",
-      sd_version: "v1_5",
-      num_images: 4,
-      width: 512,
-      height: 512,
-      num_inference_steps: 30,
-      guidance_scale: 9,
-      init_generation_image_id: "string",
-      init_image_id: "string",
-      response_format: "url",
-      init_strength: 0.6,
-      scheduler: "KLMS",
-      presetStyle: "LEONARDO",
-      tiling: true,
-      public: true,
-      promptMagic: true,
-      // controlNet: true,
-      controlNetType: "POSE",
-    }),
+  const handleGenerate = async () => {
+    setCanGetImage(true);
+    let promt = `${architecture} ${view} ${weather}`;
+    const response = await dispatch(getImageGenerationID(promt));
+    console.log(response.payload.sdGenerationJob.generationId);
+    dispatch(imagesDetail(response.payload.sdGenerationJob.generationId));
+    setPromt(promt);
+    setTimeout(() => setCanGetImage(false), 21000);
   };
-  const handleClick = async () => {
-    fetch("https://cloud.leonardo.ai/api/rest/v1/generations", options)
-      .then((response) => response.json())
-      .then((response) => console.log(response))
-      .catch((err) => console.error(err));
+
+  const getImage = (id) => {
+    console.log(id);
+    dispatch(imagesDetail(generationID));
   };
-  // const data = {
-  //   prompt: `${architecture} ${view} ${weather} black Houses, Modern, Futuristic, Trees, Photorealistic, V-Ray Tracing, Ultra Detailed, Octane Render modern house in the woods creative commons attribution  a digital rendering by Maginel Wright Enright Barney modernism realistic architecture house modern --ar 16:9 --c 50 --quality 0.5`,
-  // };
-
-  // const fetchMidJourney = async () => {
-  //   setIsGenerating(true);
-  //   try {
-  //     // Text data to be sent
-  //     const result = await axios.post(
-  //       "https://maison-be.onrender.com/api/midjourneyAPI",
-  //       data,
-  //       {
-  //         headers: {
-  //           tempopassword: "truongtritin",
-  //         },
-  //       }
-  //     );
-  //     console.log(result.data, "This is MidJourney AI");
-  //     setImgUri(result.data.uri);
-  //     setIsGenerating(false);
-  //   } catch (error) {
-  //     console.log("POST DATA ERROR", error);
-  //   }
-  // };
-
-  // const handleGenerate = () => {
-  //   console.log("Button click");
-  //   setImgUri("");
-  //   console.log(`${architecture} ${view} ${weather}`);
-  //   setShowPromt(`${architecture} ${view} ${weather}`);
-  //   // fetchMidJourney();
-  // };
-
   return (
     <div className=" w-full  flex justify-center items-center  font-bold font-poppins ">
       <div className="  gap-3 w-full flex-col flex items-center justify-center px-9">
@@ -168,65 +112,86 @@ const ImageGenerate = () => {
               <option value="rain">Rain</option>
             </select>
           </div>
-          <div className="place-self-stretch relative w-full col-span-1 col-start-2	 flex items-center justify-center">
+          <div className="place-self-stretch gap-12 relative w-full col-span-1 col-start-2	 flex items-center justify-center">
             <button
-              // disabled={true}
-              // disabled={isGenerating == true ? true : false}
-              onClick={() => handleClick()}
+              onClick={() => handleGenerate()}
               className={`glow-on-hover ${
-                isGenerating == true ? "cursor-not-allowed" : "cursor-pointer"
+                canGetImage == false ? "cursor-not-allowed" : "cursor-pointer"
               } font-poppins w-full hover:scale-105 transition  ease-in-out  py-3 rounded-3xl text-3xl relative`}
             >
-              Generate
+              Generate ID
             </button>
+            {generationID !== null || imageUrl.length > 0 ? (
+              <button
+                // disabled={canGetImage == true ? true : false}
+                onClick={() => getImage(generationID)}
+                className={`glow-on-hover ${
+                  canGetImage == true
+                    ? "cursor-not-allowed "
+                    : "cursor-pointer bg-yellow"
+                } font-poppins w-full hover:scale-105 transition  ease-in-out  py-3 rounded-3xl text-3xl relative`}
+              >
+                Get Image
+              </button>
+            ) : (
+              ""
+            )}
           </div>
         </div>
         <div className="w-full flex flex-col h-full pb-24">
-          {imgUri && (
+          <p className="w-full text-center py-3 m-0 text-3xl  flex capitalize px-6 items-center justify-center">
+            <span className="font-medium text-xl px-3">Your design ideas</span>{" "}
+            {promt}
+          </p>
+          {generationID !== null && imageUrl.length > 0 ? (
             <>
-              {/* <ReactConfetti run numberOfPieces={150} /> */}
-              <p className="w-full py-3 m-0 text-3xl  flex capitalize px-6 items-center justify-center">
-                {showPromt}
-              </p>
-              <a
-                className="shadow-2xl cursor-zoom-in rounded-3xl hover:scale-105 transition ease-in-out"
-                target="_blank"
-                rel="noreferrer"
-                href={imgUri}
-              >
-                <img
-                  className="h-full  rounded-3xl w-full object-cover"
-                  src={imgUri}
-                ></img>
-              </a>
-              <div className="w-full pt-6 flex-col flex justify-center items-center">
-                <h1 className="m-0 py-1 font-bold text-xl">Design with AI</h1>
-                <div className="flex gap-6">
-                  <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
-                    <FacebookShareButton url={imgUri} hashtag="#AIImage">
-                      <FacebookIcon round={true} />
-                    </FacebookShareButton>
-                  </div>
-                  <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
-                    <FacebookMessengerShareButton url={imgUri}>
-                      <FacebookMessengerIcon round={true} />
-                    </FacebookMessengerShareButton>
-                  </div>
-                  <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
-                    <TwitterShareButton url={imgUri} hashtag="#AIImage">
-                      <TwitterIcon round={true} />
-                    </TwitterShareButton>
-                  </div>
-                </div>
+              <div className="grid grid-cols-2 gap-9">
+                {imageUrl?.map((image) => {
+                  return (
+                    <>
+                      <div className="col-span-1 flex flex-col">
+                        <a
+                          className="shadow-2xl cursor-zoom-in rounded-3xl hover:scale-105 transition ease-in-out"
+                          target="_blank"
+                          rel="noreferrer"
+                          href={image.url}
+                        >
+                          <img
+                            className="h-full rounded-3xl w-full object-cover"
+                            src={image.url}
+                          ></img>
+                        </a>
+                      </div>
+                    </>
+                  );
+                })}
               </div>
             </>
+          ) : (
+            ""
           )}
-          {isGenerating == true && <AimageSkeleton />}
-          {/* <img src={imageUrl}></img> */}
+          {canGetImage == true && <AimageSkeleton />}
         </div>
       </div>
     </div>
   );
 };
 
+// <div className="flex gap-6">
+//   <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
+//     <FacebookShareButton url={image.url} hashtag="#AIImage">
+//       <FacebookIcon round={true} />
+//     </FacebookShareButton>
+//   </div>
+//   <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
+//     <FacebookMessengerShareButton url={image.url}>
+//       <FacebookMessengerIcon round={true} />
+//     </FacebookMessengerShareButton>
+//   </div>
+//   <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
+//     <TwitterShareButton url={image.url} hashtag="#AIImage">
+//       <TwitterIcon round={true} />
+//     </TwitterShareButton>
+//   </div>
+// </div>;
 export default ImageGenerate;
