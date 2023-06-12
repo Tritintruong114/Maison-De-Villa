@@ -24,6 +24,27 @@ const ImageGenerate = () => {
   const [weather, setWeather] = useState("");
   const [showPromt, setShowPromt] = useState("");
 
+  const [imageUrl, setImageUrl] = useState("");
+
+  const handleClick = async () => {
+    const prompt = "Generate an image of a cat playing the piano";
+    const response = await fetch("https://api.leonardo.ai/v1/image/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer 3e1edc25-c3db-4b97-bafb-f2a1b07d027a",
+      },
+      body: JSON.stringify({
+        model: "image-generator",
+        prompt: prompt,
+        response_format: "url",
+      }),
+    });
+
+    const data = await response.json();
+    setImageUrl(data.url);
+    console.log(imageUrl);
+  };
   const data = {
     prompt: `${architecture} ${view} ${weather} black Houses, Modern, Futuristic, Trees, Photorealistic, V-Ray Tracing, Ultra Detailed, Octane Render modern house in the woods creative commons attribution  a digital rendering by Maginel Wright Enright Barney modernism realistic architecture house modern --ar 16:9 --c 50 --quality 0.5`,
   };
@@ -133,8 +154,9 @@ const ImageGenerate = () => {
           </div>
           <div className="place-self-stretch relative w-full col-span-1 col-start-2	 flex items-center justify-center">
             <button
-              disabled={isGenerating == true ? true : false}
-              onClick={() => handleGenerate()}
+              // disabled={true}
+              // disabled={isGenerating == true ? true : false}
+              onClick={() => handleClick()}
               className={`glow-on-hover ${
                 isGenerating == true ? "cursor-not-allowed" : "cursor-pointer"
               } font-poppins w-full hover:scale-105 transition  ease-in-out  py-3 rounded-3xl text-3xl relative`}
@@ -189,6 +211,7 @@ const ImageGenerate = () => {
             </>
           )}
           {isGenerating == true && <AimageSkeleton />}
+          <img src={imageUrl}></img>
         </div>
       </div>
     </div>
