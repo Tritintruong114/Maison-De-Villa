@@ -112,7 +112,7 @@ const ImageGenerate = () => {
               <option value="rain">Rain</option>
             </select>
           </div>
-          <div className="place-self-stretch gap-12 relative w-full col-span-1 col-start-2	 flex items-center justify-center">
+          <div className="place-self-stretch gap-12 relative w-full col-span-3 px-12	 flex items-center justify-center">
             <button
               onClick={() => handleGenerate()}
               className={`glow-on-hover ${
