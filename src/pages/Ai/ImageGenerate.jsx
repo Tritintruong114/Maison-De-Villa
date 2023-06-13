@@ -11,7 +11,7 @@ import { FacebookIcon } from "react-share";
 import { useSelector, useDispatch } from "react-redux";
 import { getImageGenerationID } from "../../features/fetchData/imageSlice";
 import { imagesDetail } from "../../features/fetchData/imageSlice";
-
+import { ColorRing } from "react-loader-spinner";
 const ImageGenerate = () => {
   const { imageUrl, generationID, isFetching } = useSelector(
     (store) => store.imageDetail
@@ -38,6 +38,7 @@ const ImageGenerate = () => {
   const getImage = (id) => {
     console.log(id);
     dispatch(imagesDetail(generationID));
+    // dispatch(imagesDetail(response.payload.sdGenerationJob.generationId));
   };
   return (
     <div className=" w-full  flex justify-center items-center  font-bold font-poppins ">
@@ -62,7 +63,7 @@ const ImageGenerate = () => {
               id="architecture"
             >
               <option value="Minimalist Architecture">
-                Minimalist Architecture
+                Minimalist Architecture 🔥
               </option>
               <option value="Brutalist Architecture">
                 Brutalist Architecture
@@ -70,7 +71,9 @@ const ImageGenerate = () => {
               <option value="Baroque Architecture ">
                 Baroque Architecture{" "}
               </option>
-              <option value="Modern Architecture">Modern Architecture</option>
+              <option value="Modern Architecture">
+                Modern Architecture 🔥
+              </option>
               <option value="Art Deco Architecture">
                 Art Deco Architecture
               </option>
@@ -88,9 +91,9 @@ const ImageGenerate = () => {
             >
               <option value="Mountain range">Mountain range</option>
               <option value="Beach">Beach</option>
-              <option value="Forest in autumn">Forest in autumn</option>
+              <option value="Forest in autumn">Forest in autumn 🔥</option>
               <option value="Spring">Spring</option>
-              <option value="Snow covered">Snow covered</option>
+              <option value="Snow covered">Snow covered 🔥</option>
               <option value="rainbow">Rainbow</option>
             </select>
           </div>
@@ -104,9 +107,9 @@ const ImageGenerate = () => {
               onChange={(e) => setWeather(e.target.value)}
               id="weather"
             >
-              <option value="sunset">Sunset</option>
+              <option value="sunset">Sunset 🔥</option>
               <option value="snow">Snow</option>
-              <option value="sunny">Sunny</option>
+              <option value="sunny">Sunny 🔥</option>
               <option value="cloudy">Cloudy</option>
               <option value="thunder">Thunder</option>
               <option value="rain">Rain</option>
@@ -119,7 +122,7 @@ const ImageGenerate = () => {
                 canGetImage == false ? "cursor-not-allowed" : "cursor-pointer"
               } font-poppins w-full hover:scale-105 transition  ease-in-out  py-3 rounded-3xl text-3xl relative`}
             >
-              Generate ID
+              Generate
             </button>
             {generationID !== null || imageUrl.length > 0 ? (
               <button
@@ -128,10 +131,28 @@ const ImageGenerate = () => {
                 className={`glow-on-hover ${
                   canGetImage == true
                     ? "cursor-not-allowed "
-                    : "cursor-pointer bg-yellow"
-                } font-poppins w-full hover:scale-105 transition  ease-in-out  py-3 rounded-3xl text-3xl relative`}
+                    : "cursor-pointer "
+                } font-poppins w-full hover:scale-105 transition flex justify-center items-center ease-in-out  py-3 rounded-3xl text-3xl relative`}
               >
-                Get Image
+                {canGetImage == true ? (
+                  <ColorRing
+                    visible={true}
+                    height="80"
+                    width="80"
+                    ariaLabel="blocks-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="blocks-wrapper"
+                    colors={[
+                      "#b8c480",
+                      "#B2A3B5",
+                      "#F4442E",
+                      "#51E5FF",
+                      "#429EA6",
+                    ]}
+                  />
+                ) : (
+                  "Get Images"
+                )}
               </button>
             ) : (
               ""
@@ -149,9 +170,9 @@ const ImageGenerate = () => {
                 {imageUrl?.map((image) => {
                   return (
                     <>
-                      <div className="col-span-1 flex flex-col">
+                      <div className="col-span-1 flex flex-col justify-center items-center gap-6">
                         <a
-                          className="shadow-2xl cursor-zoom-in rounded-3xl hover:scale-105 transition ease-in-out"
+                          className="shadow-2xl w-full cursor-zoom-in rounded-3xl hover:scale-105 transition ease-in-out"
                           target="_blank"
                           rel="noreferrer"
                           href={image.url}
@@ -161,6 +182,29 @@ const ImageGenerate = () => {
                             src={image.url}
                           ></img>
                         </a>
+                        <div className="flex gap-6">
+                          <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
+                            <FacebookShareButton
+                              url={image.url}
+                              hashtag="#AIImage"
+                            >
+                              <FacebookIcon round={true} />
+                            </FacebookShareButton>
+                          </div>
+                          <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
+                            <FacebookMessengerShareButton url={image.url}>
+                              <FacebookMessengerIcon round={true} />
+                            </FacebookMessengerShareButton>
+                          </div>
+                          <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
+                            <TwitterShareButton
+                              url={image.url}
+                              hashtag="#AIImage"
+                            >
+                              <TwitterIcon round={true} />
+                            </TwitterShareButton>
+                          </div>
+                        </div>
                       </div>
                     </>
                   );
@@ -177,21 +221,4 @@ const ImageGenerate = () => {
   );
 };
 
-// <div className="flex gap-6">
-//   <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
-//     <FacebookShareButton url={image.url} hashtag="#AIImage">
-//       <FacebookIcon round={true} />
-//     </FacebookShareButton>
-//   </div>
-//   <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
-//     <FacebookMessengerShareButton url={image.url}>
-//       <FacebookMessengerIcon round={true} />
-//     </FacebookMessengerShareButton>
-//   </div>
-//   <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
-//     <TwitterShareButton url={image.url} hashtag="#AIImage">
-//       <TwitterIcon round={true} />
-//     </TwitterShareButton>
-//   </div>
-// </div>;
 export default ImageGenerate;
