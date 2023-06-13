@@ -28,9 +28,6 @@ const TopNavBar = () => {
           onMouseLeave={() => setShowMenu(false)}
           className=" text-black bg-white md:invisible visible flex flex-col absolute w-full"
         >
-          {/* <button className="active:bg-fall h-9 w-full hover:bg-lightBrown">
-            <Link to="cabin&cottages">Cabin & cottages</Link>
-      </button>*/}
           <button className="active:bg-fall h-9 w-full hover:bg-lightBrown">
             <Link to="ai">Design your🔥</Link>
           </button>{" "}

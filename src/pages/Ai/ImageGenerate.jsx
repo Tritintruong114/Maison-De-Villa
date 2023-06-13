@@ -13,18 +13,16 @@ import { getImageGenerationID } from "../../features/fetchData/imageSlice";
 import { imagesDetail } from "../../features/fetchData/imageSlice";
 import { ColorRing } from "react-loader-spinner";
 const ImageGenerate = () => {
-  const { imageUrl, generationID, isFetching } = useSelector(
-    (store) => store.imageDetail
-  );
+  //this is for Redux toolkit
+  const { imageUrl, generationID } = useSelector((store) => store.imageDetail);
   const dispatch = useDispatch();
-
-  const [isGenerating, setIsGenerating] = useState(false);
+  //This is for the User form
   const [architecture, setArchitecture] = useState("");
   const [view, setView] = useState("");
   const [weather, setWeather] = useState("");
   const [promt, setPromt] = useState("");
   const [canGetImage, setCanGetImage] = useState(null);
-
+  //This is for the Fetching Id of the Image Promt that user input to
   const handleGenerate = async () => {
     setCanGetImage(true);
     let promt = `${architecture} ${view} ${weather}`;
@@ -35,11 +33,13 @@ const ImageGenerate = () => {
     setTimeout(() => setCanGetImage(false), 21000);
   };
 
+  //This button is for the Image render to the UI
   const getImage = (id) => {
     console.log(id);
     dispatch(imagesDetail(generationID));
-    // dispatch(imagesDetail(response.payload.sdGenerationJob.generationId));
   };
+
+  //This is for the UI
   return (
     <div className=" w-full  flex justify-center items-center  font-bold font-poppins ">
       <div className="  gap-3 w-full flex-col flex items-center justify-center px-9">
@@ -126,7 +126,6 @@ const ImageGenerate = () => {
             </button>
             {generationID !== null || imageUrl.length > 0 ? (
               <button
-                // disabled={canGetImage == true ? true : false}
                 onClick={() => getImage(generationID)}
                 className={`glow-on-hover ${
                   canGetImage == true
