@@ -18,14 +18,15 @@ export const getImageGenerationID = createAsyncThunk(
           authorization: `Bearer ${import.meta.env.VITE_PUBLIC_SERVER_ID}`,
         },
         body: JSON.stringify({
-          prompt: `${promt} sky with thunder modernism realistic architecture house modern editorial photo from Dwell, Midcentury modern house, on a cliff overlooking Los Angeles, brilliant architecture, beautiful, exclusive, expensive, minimal lines, breathtaking, 8K, architecture photography`,
-          width: 512,
+          prompt: `${promt}   modernism landscape fullview  realistic architecture house modern editorial photo from Dwell, Midcentury modern house, on a cliff overlooking Los Angeles, brilliant architecture, beautiful, exclusive, expensive, minimal lines, breathtaking, 8K, architecture photography`,
+          width: 1024,
           guidance_scale: 9,
-          height: 512,
+          height: 864,
           num_inference_steps: 30,
-          init_strength: 0.7,
-          sd_version: "v2",
+          init_strength: 0.9,
+          sd_version: "v1_5",
           promptMagic: true,
+          presetStyle: "LEONARDO",
         }),
       };
       const getData = await fetch(
