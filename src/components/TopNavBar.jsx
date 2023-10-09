@@ -2,11 +2,12 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { GoThreeBars } from "react-icons/go";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import user from "./user.png";
 const TopNavBar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
+
   const handleShowMenuDropDown = () => {
     setShowMenu(!showMenu);
     console.log(showMenu);
@@ -23,6 +24,7 @@ const TopNavBar = () => {
   }, []);
   return (
     <div className="flex shadow-md relative pb-6 font-poppins w-full h-full">
+      <ToastContainer />
       {showMenu && (
         <div
           onMouseLeave={() => setShowMenu(false)}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AimageSkeleton from "../../components/AimageSkeleton";
 import {
   FacebookMessengerIcon,
@@ -12,22 +12,32 @@ import { useSelector, useDispatch } from "react-redux";
 import { getImageGenerationID } from "../../features/fetchData/imageSlice";
 import { imagesDetail } from "../../features/fetchData/imageSlice";
 import { ColorRing } from "react-loader-spinner";
+import { ToastContainer, toast } from "react-toastify";
 const ImageGenerate = () => {
   //this is for Redux toolkit
   const { imageUrl, generationID } = useSelector((store) => store.imageDetail);
+  let weather = {
+    snow: "snow",
+    sunny: "sunny",
+  };
+  const [isWeather, setIsWeather] = useState();
   let imageArr = [
     {
       url: "https://cdn.leonardo.ai/users/9d219e76-c648-4bd0-b9f2-3d52de36dbca/generations/643c7158-bd91-4ae8-a20b-fdc734de9314/Default_Modern_Architecture_Forest_in_autumn_sunny_modernism_1.jpg",
+      url2: "https://cdn.leonardo.ai/users/9d219e76-c648-4bd0-b9f2-3d52de36dbca/generations/4ca83553-0356-4509-9f98-c22f7c6c1c54/Default_Modern_Architecture_Snow_covered_snow_modernism_land_0.jpg",
     },
     {
       url: "https://cdn.leonardo.ai/users/9d219e76-c648-4bd0-b9f2-3d52de36dbca/generations/59840e00-764c-4408-a0af-cf4b87b6b20c/Default_Modern_Architecture_Forest_in_autumn_sunny_sky_with_th_0.jpg",
+      url2: "https://cdn.leonardo.ai/users/9d219e76-c648-4bd0-b9f2-3d52de36dbca/generations/4ca83553-0356-4509-9f98-c22f7c6c1c54/Default_Modern_Architecture_Snow_covered_snow_modernism_land_1.jpg",
     },
 
     {
       url: "https://cdn.leonardo.ai/users/9d219e76-c648-4bd0-b9f2-3d52de36dbca/generations/643c7158-bd91-4ae8-a20b-fdc734de9314/Default_Modern_Architecture_Forest_in_autumn_sunny_modernism_3.jpg",
+      url2: "https://cdn.leonardo.ai/users/9d219e76-c648-4bd0-b9f2-3d52de36dbca/generations/4ca83553-0356-4509-9f98-c22f7c6c1c54/Default_Modern_Architecture_Snow_covered_snow_modernism_land_2.jpg",
     },
     {
       url: "https://cdn.leonardo.ai/users/9d219e76-c648-4bd0-b9f2-3d52de36dbca/generations/d50cacf1-2525-4d59-85e9-1c94ecea196c/Default_Modern_Architecture_Forest_in_autumn_sunny_modernism_3.jpg",
+      url2: "https://cdn.leonardo.ai/users/9d219e76-c648-4bd0-b9f2-3d52de36dbca/generations/4ca83553-0356-4509-9f98-c22f7c6c1c54/Default_Modern_Architecture_Snow_covered_snow_modernism_land_3.jpg",
     },
   ];
 
@@ -35,21 +45,18 @@ const ImageGenerate = () => {
   //This is for the User form
   const [architecture, setArchitecture] = useState("");
   const [view, setView] = useState("");
-  const [weather, setWeather] = useState("");
   const [promt, setPromt] = useState("");
   const [canGetImage, setCanGetImage] = useState(null);
   //This is for the Fetching Id of the Image Promt that user input to
   const [trigger, setTrigger] = useState("");
 
-  const handleGenerate = async () => {
-    // setCanGetImage(true);
-    // let promt = `${architecture} ${view} ${weather}`;
-    // const response = await dispatch(getImageGenerationID(promt));
-    // console.log(response.payload.sdGenerationJob.generationId);
-    // dispatch(imagesDetail(response.payload.sdGenerationJob.generationId));
-    // setPromt(promt);
+  const handleGenerate = async (e) => {
     setTrigger(true);
-    setTimeout(() => setTrigger(false), 9000);
+    setTimeout(() => {
+      setIsWeather(e);
+      toast.success("Image Generated Successfully");
+      setTrigger(false);
+    }, 9000);
   };
 
   //This button is for the Image render to the UI
@@ -57,9 +64,15 @@ const ImageGenerate = () => {
     dispatch(imagesDetail(generationID));
   };
 
+  useEffect(() => {
+    if (localStorage.getItem("email")) {
+      console.log("Not logged in");
+    }
+  }, []);
   //This is for the UI
   return (
     <div className=" w-full  flex justify-center items-center  font-bold font-poppins ">
+      <ToastContainer />
       <div className="  gap-3 w-full flex-col flex items-center justify-center px-9">
         <div className="flex pb-6 flex-col justify-center items-center">
           <h1 className="text-3xl m-0 font-bold">
@@ -122,7 +135,7 @@ const ImageGenerate = () => {
             </label>
             <select
               className="w-full py-1  px-3 rounded-3xl focus:outline-none"
-              onChange={(e) => setWeather(e.target.value)}
+              onChange={(e) => handleGenerate(e.target.value)}
               id="weather"
             >
               <option value="sunset">Sunset 🔥</option>
@@ -134,14 +147,14 @@ const ImageGenerate = () => {
             </select>
           </div>
           <div className="place-self-stretch gap-12 relative w-full col-span-3 px-12	 flex items-center justify-center">
-            <button
+            {/* <button
               onClick={() => handleGenerate()}
               className={`glow-on-hover ${
                 canGetImage == false ? "cursor-not-allowed" : "cursor-pointer"
               } font-poppins w-full hover:scale-105 transition  ease-in-out  py-3 rounded-3xl text-3xl relative`}
             >
               Generate
-            </button>
+            </button> */}
             {generationID !== null || imageUrl.length > 0 ? (
               <button
                 onClick={() => getImage(generationID)}
@@ -183,45 +196,87 @@ const ImageGenerate = () => {
                 {imageArr?.map((image, index) => {
                   return (
                     <>
-                      <div
-                        key={index}
-                        className="col-span-1 flex flex-col justify-center items-center gap-6"
-                      >
-                        <a
-                          className="shadow-2xl h-full w-full cursor-zoom-in rounded-3xl hover:scale-105 transition ease-in-out"
-                          target="_blank"
-                          rel="noreferrer"
-                          href={image.url}
+                      {isWeather === "sunny" && trigger === false ? (
+                        <div
+                          key={index}
+                          className="col-span-1 flex flex-col justify-center items-center gap-6"
                         >
-                          <img
-                            className="h-full rounded-3xl w-full object-cover"
-                            src={image.url}
-                          ></img>
-                        </a>
-                        <div className="flex gap-6">
-                          <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
-                            <FacebookShareButton
-                              url={image.url}
-                              hashtag="#AIImage"
-                            >
-                              <FacebookIcon round={true} />
-                            </FacebookShareButton>
-                          </div>
-                          <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
-                            <FacebookMessengerShareButton url={image.url}>
-                              <FacebookMessengerIcon round={true} />
-                            </FacebookMessengerShareButton>
-                          </div>
-                          <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
-                            <TwitterShareButton
-                              url={image.url}
-                              hashtag="#AIImage"
-                            >
-                              <TwitterIcon round={true} />
-                            </TwitterShareButton>
+                          <a
+                            className="shadow-2xl h-full w-full cursor-zoom-in rounded-3xl hover:scale-105 transition ease-in-out"
+                            target="_blank"
+                            rel="noreferrer"
+                            href={image.url}
+                          >
+                            <img
+                              className="h-full rounded-3xl w-full object-cover"
+                              src={image.url}
+                            ></img>
+                          </a>
+                          <div className="flex gap-6">
+                            <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
+                              <FacebookShareButton
+                                url={image.url}
+                                hashtag="#AIImage"
+                              >
+                                <FacebookIcon round={true} />
+                              </FacebookShareButton>
+                            </div>
+                            <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
+                              <FacebookMessengerShareButton url={image.url}>
+                                <FacebookMessengerIcon round={true} />
+                              </FacebookMessengerShareButton>
+                            </div>
+                            <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
+                              <TwitterShareButton
+                                url={image.url}
+                                hashtag="#AIImage"
+                              >
+                                <TwitterIcon round={true} />
+                              </TwitterShareButton>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      ) : (
+                        <div
+                          key={index}
+                          className="col-span-1 flex flex-col justify-center items-center gap-6"
+                        >
+                          <a
+                            className="shadow-2xl h-full w-full cursor-zoom-in rounded-3xl hover:scale-105 transition ease-in-out"
+                            target="_blank"
+                            rel="noreferrer"
+                            href={image.url2}
+                          >
+                            <img
+                              className="h-full rounded-3xl w-full object-cover"
+                              src={image.url2}
+                            ></img>
+                          </a>
+                          <div className="flex gap-6">
+                            <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
+                              <FacebookShareButton
+                                url={image.url2}
+                                hashtag="#AIImage"
+                              >
+                                <FacebookIcon round={true} />
+                              </FacebookShareButton>
+                            </div>
+                            <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
+                              <FacebookMessengerShareButton url={image.url2}>
+                                <FacebookMessengerIcon round={true} />
+                              </FacebookMessengerShareButton>
+                            </div>
+                            <div className="hover:scale-110 shadow-2xl rounded-full transition ease-in-out">
+                              <TwitterShareButton
+                                url={image.url2}
+                                hashtag="#AIImage"
+                              >
+                                <TwitterIcon round={true} />
+                              </TwitterShareButton>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </>
                   );
                 })}
