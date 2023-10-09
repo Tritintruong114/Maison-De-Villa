@@ -15,6 +15,22 @@ import { ColorRing } from "react-loader-spinner";
 const ImageGenerate = () => {
   //this is for Redux toolkit
   const { imageUrl, generationID } = useSelector((store) => store.imageDetail);
+  let imageArr = [
+    {
+      url: "https://cdn.leonardo.ai/users/9d219e76-c648-4bd0-b9f2-3d52de36dbca/generations/643c7158-bd91-4ae8-a20b-fdc734de9314/Default_Modern_Architecture_Forest_in_autumn_sunny_modernism_1.jpg",
+    },
+    {
+      url: "https://cdn.leonardo.ai/users/9d219e76-c648-4bd0-b9f2-3d52de36dbca/generations/59840e00-764c-4408-a0af-cf4b87b6b20c/Default_Modern_Architecture_Forest_in_autumn_sunny_sky_with_th_0.jpg",
+    },
+
+    {
+      url: "https://cdn.leonardo.ai/users/9d219e76-c648-4bd0-b9f2-3d52de36dbca/generations/643c7158-bd91-4ae8-a20b-fdc734de9314/Default_Modern_Architecture_Forest_in_autumn_sunny_modernism_3.jpg",
+    },
+    {
+      url: "https://cdn.leonardo.ai/users/9d219e76-c648-4bd0-b9f2-3d52de36dbca/generations/d50cacf1-2525-4d59-85e9-1c94ecea196c/Default_Modern_Architecture_Forest_in_autumn_sunny_modernism_3.jpg",
+    },
+  ];
+
   const dispatch = useDispatch();
   //This is for the User form
   const [architecture, setArchitecture] = useState("");
@@ -23,19 +39,21 @@ const ImageGenerate = () => {
   const [promt, setPromt] = useState("");
   const [canGetImage, setCanGetImage] = useState(null);
   //This is for the Fetching Id of the Image Promt that user input to
+  const [trigger, setTrigger] = useState("");
+
   const handleGenerate = async () => {
-    setCanGetImage(true);
-    let promt = `${architecture} ${view} ${weather}`;
-    const response = await dispatch(getImageGenerationID(promt));
-    console.log(response.payload.sdGenerationJob.generationId);
-    dispatch(imagesDetail(response.payload.sdGenerationJob.generationId));
-    setPromt(promt);
-    setTimeout(() => setCanGetImage(false), 21000);
+    // setCanGetImage(true);
+    // let promt = `${architecture} ${view} ${weather}`;
+    // const response = await dispatch(getImageGenerationID(promt));
+    // console.log(response.payload.sdGenerationJob.generationId);
+    // dispatch(imagesDetail(response.payload.sdGenerationJob.generationId));
+    // setPromt(promt);
+    setTrigger(true);
+    setTimeout(() => setTrigger(false), 9000);
   };
 
   //This button is for the Image render to the UI
   const getImage = (id) => {
-    console.log(id);
     dispatch(imagesDetail(generationID));
   };
 
@@ -159,19 +177,18 @@ const ImageGenerate = () => {
           </div>
         </div>
         <div className="w-full flex flex-col h-full pb-24">
-          <p className="w-full text-center py-3 m-0 text-3xl  flex capitalize px-6 items-center justify-center">
-            <span className="font-medium text-xl px-3">Your design ideas</span>{" "}
-            {promt}
-          </p>
-          {generationID !== null && imageUrl.length > 0 ? (
+          {imageArr.length > 0 && trigger === false ? (
             <>
               <div className="grid grid-cols-2 gap-9">
-                {imageUrl?.map((image) => {
+                {imageArr?.map((image, index) => {
                   return (
                     <>
-                      <div className="col-span-1 flex flex-col justify-center items-center gap-6">
+                      <div
+                        key={index}
+                        className="col-span-1 flex flex-col justify-center items-center gap-6"
+                      >
                         <a
-                          className="shadow-2xl w-full cursor-zoom-in rounded-3xl hover:scale-105 transition ease-in-out"
+                          className="shadow-2xl h-full w-full cursor-zoom-in rounded-3xl hover:scale-105 transition ease-in-out"
                           target="_blank"
                           rel="noreferrer"
                           href={image.url}
@@ -213,7 +230,7 @@ const ImageGenerate = () => {
           ) : (
             ""
           )}
-          {canGetImage == true && <AimageSkeleton />}
+          {trigger === true ? <AimageSkeleton /> : ""}
         </div>
       </div>
     </div>
